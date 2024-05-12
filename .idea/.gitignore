@@ -10,3 +10,6 @@
 # react node_modules ignored files
 /src/front/node_modules/
 node_modules/
+
+#intellij project files
+.idea
