@@ -1,18 +1,36 @@
 import React, { useState } from 'react';
 import "./LoginPage.css";
 import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 
 function LoginPage() {
 
+    // -----------------------------
+    // 페이지 이동을 위한 useNavigate 사용
+    // -----------------------------
+    const navigate = useNavigate(); // useNavigate 훅 사용
+
+
+    // -----------------------------
     // 변수 지정
+    // -----------------------------
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    // -----------------------------
+    // 로그인 api
+    // -----------------------------
     async function signUp(){
-        alert("login start");
 
         try {
-            const data = await axios.get("/api/login", { email, password });
+            const loginApi = await axios.get("/api/login", { email, password });
+            alert(loginApi.data);
+            // 서버에서 "LOGIN_SUCCESS"를 받았을 때 페이지 이동
+            if (loginApi.data === 'LOGIN_SUCCESS') {
+                navigate('/MainPage');
+            } else {
+                alert("Not exist login Information.");
+            }
         } catch {
             // 오류 발생시 실행
         }

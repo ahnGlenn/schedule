@@ -34,7 +34,7 @@ public class LoginController {
 //            } else {
 //                results = ">>>>>>>>>>>>>>>>>>>>>>> LOGIN_FAILURE";
 //            }
-
+            results = "LOGIN_SUCCESS";
         }catch (Exception e){
             e.getStackTrace();
         }
