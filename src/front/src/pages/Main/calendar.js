@@ -4,6 +4,9 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from "@fullcalendar/interaction";
 
+/**********************************
+ Calender Component for MainPage.js
+ **********************************/
 function Calendar() {
 
     const [value, onChange] = useState(new Date());
