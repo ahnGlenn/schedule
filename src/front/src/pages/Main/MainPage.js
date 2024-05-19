@@ -9,7 +9,7 @@ function MainPage() {
 
     return (
         <div>
-            <h1>Prince Glenn With Evaffanculo</h1>
+            <h1>Glenn With Evaffanculo</h1>
             <h2>Porca Eva! Basta!!! Sono stufo delle tue scuse</h2>
             <h3>Danm! Enough! I'm tired of your excuses </h3>
 
