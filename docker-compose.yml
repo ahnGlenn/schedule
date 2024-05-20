@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  front-app: #이미지 이름
+    build:
+      context: ./src/front
+      dockerfile: Dockerfile
+    ports:
+      - 3000  #포트포워딩
+    networks:
+      - camp-net
+
+  springboot-app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+      # 내부포트 : 외부포트
+      # 만약 8080/7777 이런식으로 해놓으면, 아래 networks > camp-net > driver : host로 바꾸고,
+      # package.json > "proxy": "http://localhost:8080", 를 http://springboot-app:7777 로 해야함.
+    networks:
+      - camp-net
+
+
+# 기본 네트워크 유형을 bridge라고 하면 이 네트워크 유형은 호스트 pc내부의 사설 네트워크가 생성된다.configs:
+# 브리지 네티워크의 컨테이너는 포트를 호스트에 노출하지않고 서로 통신 가능하다.(각 app의 이름으로...)
+networks:
+  camp-net:
+    driver: bridge
+
+
+## docker-compose up --buid : 도커컴포스를 사용하여 한번에 빌드하는 명령어
