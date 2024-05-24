@@ -36,6 +36,7 @@ public class CurrencyController {
 
     @GetMapping("/currency")
     public String getCurrencyRate (){
+
         log.info(">>>>>>>>>> Start CurrencyRate >>>>>>>>>>");
 
         LocalDate currentDate = LocalDate.now();
@@ -85,7 +86,6 @@ public class CurrencyController {
                     job2.addProperty("curNm", curNm);
                     job2.addProperty("dealBasR", dealBasR);
 
-
                     System.out.println("[코드명: " + curUnit + "] [국가명: " + curNm + "] [환율액: " + dealBasR+ "]");
 
                     if(curUnit.equals("KRW") || curUnit.equals("EUR")){
@@ -101,6 +101,11 @@ public class CurrencyController {
         }
 
         return jsonList.toString();
+    }
+    
+    // 공휴일 및 주말에 searchdate 예외처리 필요
+    private void getSearchdate(){
+        // 예외처리 시작
     }
 
 }
