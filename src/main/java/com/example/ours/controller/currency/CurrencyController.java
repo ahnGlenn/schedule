@@ -5,6 +5,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +27,7 @@ import java.time.format.DateTimeFormatter;
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class CurrencyController {
+    private static final Logger log = LoggerFactory.getLogger(CurrencyController.class);
 
     // 환율 api : https://www.koreaexim.go.kr/ir/HPHKIR020M01?apino=2&viewtype=C&searchselect=&searchword=
     // request URL : https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey=AUTHKEY1234567890&searchdate=20180102&data=AP01
@@ -32,7 +35,8 @@ public class CurrencyController {
     // 비영업일의 데이터, 혹은 영업당일 11시 이전에 해당일의 데이터를 요청할 경우 null 값이 반환
 
     @GetMapping("/currency")
-    public BigDecimal getCurrencyRate (){
+    public String getCurrencyRate (){
+        log.info(">>>>>>>>>> Start CurrencyRate >>>>>>>>>>");
 
         LocalDate currentDate = LocalDate.now();
 
@@ -42,18 +46,19 @@ public class CurrencyController {
 
         String reqUrl = "https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey="+authKey+"&searchdate="+searchdate+"&data="+data;
 
+        // 분류될 데이터를 담을 저장소
+        JsonArray jsonList = new JsonArray();
+
         try{
             // Request URL
             URL url = new URL(reqUrl);
-            
+
             // HttpURLConnection 객체 생성 , URL에 대한 연결을 열기
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
 
             // 응답상태 확인
             int status = conn.getResponseCode();
-
-            // 응답이 성공적인 경우 데이터 출력
             if( status == HttpURLConnection.HTTP_OK){
                 BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 String inputLine;
@@ -64,22 +69,28 @@ public class CurrencyController {
                 }
                 in.close();
 
-                // 응답 출력
-                System.out.println("Response : " + response.toString());
-
                 // JSON 파싱 > 응답 출력
                 JsonElement jsonElement = JsonParser.parseString(response.toString());
                 JsonArray jsonArray = jsonElement.getAsJsonArray();
 
                 for(JsonElement element : jsonArray){
                     // System.out.println(element.getAsJsonObject().toString());
-                    JsonObject job = element.getAsJsonObject();
-                    String curUnit = job.get("cur_unit").getAsString(); // 통화 코드(약어)
-                    String curNm = job.get("cur_nm").getAsString(); // 국가명
-                    String dealBasR = job.get("deal_bas_r").getAsString(); // 매매기준율( 환율우대 x, 은행별 고시환율 적용 x )
+                    JsonObject job1 = element.getAsJsonObject();
+                    String curUnit = job1.get("cur_unit").getAsString(); // 통화 코드(약어)
+                    String curNm = job1.get("cur_nm").getAsString(); // 국가명
+                    String dealBasR = job1.get("deal_bas_r").getAsString(); // 매매기준율( 환율우대 x, 은행별 고시환율 적용 x )
 
-                    // 출력
+                    JsonObject job2 = new JsonObject();
+                    job2.addProperty("curUnit", curUnit);
+                    job2.addProperty("curNm", curNm);
+                    job2.addProperty("dealBasR", dealBasR);
+
+
                     System.out.println("[코드명: " + curUnit + "] [국가명: " + curNm + "] [환율액: " + dealBasR+ "]");
+
+                    if(curUnit.equals("KRW") || curUnit.equals("EUR")){
+                        jsonList.add(job2);
+                    }
                 }
             }else{
                 System.out.println("GET request failed.");
@@ -89,7 +100,7 @@ public class CurrencyController {
             e.getStackTrace();
         }
 
-        return null;
+        return jsonList.toString();
     }
 
 }
