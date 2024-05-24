@@ -19,6 +19,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.projectlombok:lombok:1.18.28'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// gson
+	implementation 'com.google.code.gson:gson:2.8.9'
 }
 
 tasks.named('test') {
