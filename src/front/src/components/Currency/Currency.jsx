@@ -8,6 +8,8 @@ function Currency() {
     // 변수 지정
     // -----------------------------
     const [data, setData] = useState([]);
+    const [KOR, setKor] = useState([]);
+    const [EUR, setEur] = useState([]);
 
     // -----------------------------
     // 환율 데이터 가져오기 api
@@ -18,6 +20,16 @@ function Currency() {
                 const response = await fetch('http://localhost:8080/api/currency'); // Java 백엔드의 API URL
                 const result = await response.json();
                 setData(result);
+
+                result.forEach(item =>{
+                    // alert(item.dealBasR);
+                    // (item.curUnit == "KOR")? setKor(item.dealBasR):setEur(item.dealBasR);
+                    if(item.curUnit == "EUR"){
+                        setEur(item.dealBasR);
+                    }else{
+                        setKor(item.dealBasR);
+                    }
+                });
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -25,40 +37,36 @@ function Currency() {
         fetchData();
     }, []);
 
+    // -----------------------------
+    // 환율 계산 로직
+    // -----------------------------
+    const curCal = () =>{
+        alert("here");
+    }
+
     return (
         <div>
             <div>
                 <div><h1>Currency Comparison</h1></div>
             </div>
             <div>
-                    <div class="excr_box" style={{display: "flex"}}>
-                        <div class="slc_box _select_wrap">
-                            <span class="flag _flag krw"></span>
-                            <select className="nt_slc _select">
-                                {data.map((item, index) => (
-                                    <option data-param="u4=KRW" selected="">{item.curNm}</option>
-                                ))}
-                            </select>
-                            <span class="nt_eng _code">KRW</span></div>
-                        <div class="num">
-                            <input  id="num" type="text" maxLength="" value="1,370.20" className="_input" data-key="u2" data-sub-key="u8" data-value="up"/>
-                        </div>
+                <div class="excr_box" style={{display: "inline-block"}}>
+                    <div class="slc_box _select_wrap">
+                        <span class="flag _flag krw"></span>
+                        <span class="nt_eng _code">KRW</span></div>
+                    <div class="num">
+                        <input  id="num" type="text" maxLength="" value={KOR} className="_input" />
                     </div>
-                    <div class="excr_eq"><span>=</span></div>
-                    <div class="excr_box" style={{display: "flex"}}>
-                        <div class="slc_box _select_wrap">
-                            <span class="flag _flag krw"></span>
-                            <select className="nt_slc _select">
-                                {data.map((item, index) => (
-                                    <option data-param="u4=KRW" selected="">{item.curNm}</option>
-                                ))}
-                            </select>
-                            <span class="nt_eng _code">EUR</span></div>
-                        <div class="num">
-                            <input onMouseDown="goOtherTCR(this, '');" id="num" type="text" maxLength="" value="1,370.20"
-                                   className="_input" data-key="u2" data-sub-key="u8" data-value="up"/>
-                        </div>
+                </div>
+                <div class="excr_eq" style={{display: "inline-block"}}><span>=</span></div>
+                <div class="excr_box" style={{display: "inline-block"}}>
+                    <div class="slc_box _select_wrap">
+                        <span class="flag _flag krw"></span>
+                        <span class="nt_eng _code">EUR</span></div>
+                    <div class="num">
+                        <input onChange="curCal(this, '');" id="num" type="text" maxLength="" value={EUR} className="_input" />
                     </div>
+                </div>
             </div>
         </div>
     );
