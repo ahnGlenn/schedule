@@ -93,3 +93,29 @@ body {
     height:0px;
     opacity:0;
 }
+
+
+
+/* ----------------------------------- Exchange Rate Component CSS ----------------------------------- */
+.currencyTittle{
+    color:#f1575b;
+}
+.codeNm{
+    color:#f1575b;
+    font-weight: bolder;
+}
+._input{
+    color:#2c2c2c;
+    font-size: 20px;
+    background-color: #ddd;
+    width: 60%;
+    border-radius:5px;
+    text-align: right;
+}
+.excr_eq{ font-weight: bolder; color:#f1575b; display: inline-block; }
+
+
+
+
+
+/* ----------------------------------- Currency CSS ----------------------------------- */

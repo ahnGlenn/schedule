@@ -76,7 +76,6 @@ public class CurrencyController {
                 JsonArray jsonArray = jsonElement.getAsJsonArray();
 
                 for(JsonElement element : jsonArray){
-                    // System.out.println(element.getAsJsonObject().toString());
                     JsonObject job1 = element.getAsJsonObject();
                     String curUnit = job1.get("cur_unit").getAsString(); // 통화 코드(약어)
                     String curNm = job1.get("cur_nm").getAsString(); // 국가명
