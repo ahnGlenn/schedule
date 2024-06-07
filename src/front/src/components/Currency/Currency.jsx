@@ -3,7 +3,14 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 
 function Currency() {
-
+    // -----------------------------
+    // 환율 포맷(3자리)
+    // -----------------------------
+    const fmtCurrency = (e)=>{
+        const number = e;
+        return number.toLocaleString();
+    }
+    
     // -----------------------------
     // 변수 지정
     // -----------------------------
@@ -45,20 +52,25 @@ function Currency() {
     // -----------------------------
     const curCal = (e, msg) =>{
         if(msg == "KRW"){
-            alert("kor :" + e.target.value );
-            const numVal1 = parseInt(e.target.value);
-            const numVal2 = EUR;
-            alert("numVal1 :" + numVal1 + "/numVal2: " + numVal2);
-            setCalKor(numVal1);
-            setCalEur( numVal1 / numVal2);
+            if(e === 0){
+                setCalKor(0);
+                setCalEur(0)
+            }else{
+                const numVal1 = parseInt(e.target.value);
+                const numVal2 = KOR;
+                setCalKor(numVal1);
+                setCalEur( ((numVal1 / numVal2).toFixed(2)).toLocaleString());
+            }
         }else{
-            alert("eur :" + e.target.value );
-            const numVal1 = parseInt(e.target.value);
-            // 여기서 numVal2 초기화 해줘야해
-            const numVal2 = KOR;
-            alert("numVal1 :" + numVal1 + "/numVal2: " + numVal2);
-            setCalEur(numVal1);
-            setCalKor( numVal1 * numVal2);
+            if(e === 0){
+                setCalKor(0);
+                setCalEur(0)
+            }else{
+                const numVal1 = parseInt(e.target.value);
+                const numVal2 = KOR;
+                setCalEur(numVal1);
+                setCalKor( (numVal1 * numVal2).toLocaleString());
+            }
         }
     }
 
@@ -73,7 +85,12 @@ function Currency() {
                         <span className="flag _flag krw"></span>
                     </div>
                     <div className="num">
-                        <input onChange={(e) => curCal(e, 'EUR')} id="num" type="text" maxLength="" value={calEUR} className="_input"/>
+                        <input onChange={(e) => curCal(e, 'EUR')}
+                               id="num"
+                               type="text"
+                               maxLength=""
+                               value={calEUR}
+                               className="_input"/>
                         <span className="codeNm"> EUR</span>
                     </div>
                 </div>
@@ -88,7 +105,8 @@ function Currency() {
                                type="text"
                                maxLength=""
                                value={calKOR}
-                               className="_input"/>
+                               className="_input"
+                        pattern={}/>
                         <span className="codeNm"> KRW</span>
                     </div>
                 </div>

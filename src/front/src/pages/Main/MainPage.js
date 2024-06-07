@@ -10,15 +10,12 @@ function MainPage() {
 
     return (
         <div style={{display: 'flex', height: '100%'}}>
-            <div style={{width: '50%'}}>
-                <h1>Glenn With Evaffanculo</h1>
-                <h2>Porca Eva! Basta!!! Sono stufo delle tue scuse</h2>
-                <h3>Danm! Enough! I'm tired of your excuses</h3>
-
-                <Calendar/>
-
+            <div className="calendarCp" style={{width: '50%'}}>
+                <div className="inner_calendarCp">
+                    <Calendar/>
+                </div>
             </div>
-            <div style={{width: '50%'}}>
+            <div className="exRateCp" style={{width: '50%'}}>
                 <Currency/>
             </div>
         </div>

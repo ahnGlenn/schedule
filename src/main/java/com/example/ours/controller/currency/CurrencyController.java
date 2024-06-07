@@ -46,7 +46,7 @@ public class CurrencyController {
         String data = "AP01"; // AP01 : 환율, AP02 : 대출금리, AP03 : 국제금리
 
         // String reqUrl = "https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey="+authKey+"&searchdate="+searchdate+"&data="+data;
-        String reqUrl = "https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey="+authKey+"&searchdate=20240524&data="+data;
+        String reqUrl = "https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey="+authKey+"&searchdate=20240605&data="+data;
 
         // 분류될 데이터를 담을 저장소
         JsonArray jsonList = new JsonArray();
