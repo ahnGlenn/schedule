@@ -17,7 +17,11 @@ function Calendar() {
     };
 
     return (
+
         <div>
+            <h1>Our Schedule</h1>
+            {/*<h2>Porca Eva! Basta!!! Sono stufo delle tue scuse</h2>
+                <h3>Danm! Enough! I'm tired of your excuses</h3>*/}
             <FullCalendar
                 // 날짜 클릭 시 이벤트 발생
                 dateClick={dateClick}
