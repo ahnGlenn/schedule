@@ -25,6 +25,7 @@ function LoginPage() {
         try {
             const loginApi = await axios.get("/api/login", { email, password });
             alert(loginApi.data);
+
             // 서버에서 "LOGIN_SUCCESS"를 받았을 때 페이지 이동
             if (loginApi.data === 'LOGIN_SUCCESS') {
                 navigate('/MainPage');

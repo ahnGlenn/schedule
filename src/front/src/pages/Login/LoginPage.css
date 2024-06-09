@@ -165,6 +165,9 @@ body {
 
 
 /* ----------------------------------- save schedule Modal CSS ----------------------------------- */
+.modal_head .date{
+    color:#f5f5f5;
+}
 ._textArea{
     outline: none;/* 포커싱시 파란 테두리 제거 */
     height:100px;
@@ -174,32 +177,20 @@ body {
     background-color: #2D2E2F;
     border:none;
 }
-.form.modal_foot > .form-elements button {
-    width:20%;
+.modal_foot > .form-elements button {
+    width:40%;
     padding:10px;
     font-size:16px;
     font-weight:600;
-    margin-top:5px;
+    margin-top:10%;
     border-radius:10px;
     background:#f1575b;
     color:#f5f5f5;
     cursor:pointer;
     border:none;
     outline:none;
+    margin-left: 5%;
 }
-/*.dd{
-    display:flex;
-    color:#f1575b;
-    background:#272829;
-    borderRadius:20px;
-    width:500px;
-    height: 300px;
-    top:50%;
-    left:50%;
-    right:auto;
-    bottom: auto;
-    marginRight: -50%;
-    transform: translate(-50%, -50%);
-    border:0;
-    fontWeight: bolder;
-}*/
+.modal_foot > .form-elements{
+    text-align: center;
+}
