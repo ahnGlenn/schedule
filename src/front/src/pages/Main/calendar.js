@@ -44,18 +44,10 @@ function Calendar() {
     // 날짜별 데이터 등록
     // -----------------------------
     const saveSchedule = async () => {
-        alert("save schedule");
-
         try {
-            const saveSchedule = await axios.get("/api/schedule/save", {params: selectedDate});
-
-            // if (loginApi.data === 'LOGIN_SUCCESS') {
-            //     navigate('/MainPage');
-            // } else {
-            //     alert("Not exist login Information.");
-            // }
-        } catch {
-            // 오류 발생시 실행
+            const saveSchedule = await axios.get("/api/schedule/save", {params: {selectedDate}});
+        } catch(error) {
+            console.error("오류 발생:", error);
         }
     }
 
