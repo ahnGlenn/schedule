@@ -45,7 +45,14 @@ function Calendar() {
     // -----------------------------
     const saveSchedule = async () => {
         try {
-            const saveSchedule = await axios.get("/api/schedule/save", {params: {selectedDate}});
+            const response = await axios.get("/api/schedule/save", {params: {selectedDate}});
+            const result = response.data;
+            if(result === '1') {
+                setModalIsOpen(false);
+            }else{
+                alert("failed");
+            }
+
         } catch(error) {
             console.error("오류 발생:", error);
         }
