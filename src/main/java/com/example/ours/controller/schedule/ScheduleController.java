@@ -36,8 +36,10 @@ public class ScheduleController {
         try{
             System.out.println("날짜 : " + selectedDate);
             // scheduleService.saveSchedule();
+            result = "1";
         }catch (Exception e){
             e.getStackTrace();
+            result = "0";
         }
 
         return result;
