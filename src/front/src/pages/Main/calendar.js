@@ -32,7 +32,7 @@ function Calendar() {
     const customStyles = {
         content: {
             display:'flex', color:'#f1575b', background:'#272829', borderRadius: '20px',
-            width: '500px', height: '300px', top: '50%', left: '50%', right: 'auto',
+            width: '500px', height: '350px', top: '50%', left: '50%', right: 'auto',
             bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)', border:'0', fontWeight: 'bolder', fontFamily:'',
         },
         overlay: {
@@ -47,7 +47,7 @@ function Calendar() {
         alert("save schedule");
 
         try {
-            const saveSchedule = await axios.get("/api/", {selectedDate});
+            const saveSchedule = await axios.get("/api/schedule/save", {params: selectedDate});
 
             // if (loginApi.data === 'LOGIN_SUCCESS') {
             //     navigate('/MainPage');
@@ -79,7 +79,7 @@ function Calendar() {
             <Modal isOpen={modalIsOpen} style={customStyles}>
                 <div style={{flex:'1'}}>{/* 부모div에 자식div가 딱 맞게 */}
                     <div className="modal_head">
-                        <h1><span className="date">{selectedDate}</span></h1>
+                        <h1><span className="date">{selectedDate}</span><a onClick={()=> setModalIsOpen(false)} style={{float:"right"}}>X</a></h1>
                     </div>
                     <div className="modal_body">
                         <div className="divDt">
@@ -92,12 +92,10 @@ function Calendar() {
                             <textarea className="_textArea" style={{flex:'1'}}></textarea>
                         </div>
                     </div>
-                    <div className="form modal_foot">
+                    <div className="modal_foot">
                         <div className="form-elements">
                             <div className="form-element">
                                 <button onClick={saveSchedule}>save</button>
-                            </div>
-                            <div className="form-element">
                                 <button onClick={()=> setModalIsOpen(false)}>close</button>
                             </div>
                         </div>
