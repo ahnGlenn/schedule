@@ -1,6 +1,8 @@
 body {
+    padding: 2%;
     background:#272829;
-    font-family:"Raleway";
+    /*font-family:"Raleway";*/
+    font-family: "Roboto,RobotoDraft,Helvetica,Arial,sans-serif";
 }
 .form {
     position:absolute;
@@ -95,23 +97,49 @@ body {
 }
 
 /* ----------------------------------- Full Calendar Component CSS ----------------------------------- */
+
 .calendarCp{
+    box-shadow: 5px 5px 5px 5px #222222;
     background-color: #2c2c2c;
-    border: solid;
-    height: 900px;
     border-radius: 30px;
+    margin-right: 1%;
 }
 
+.calendarTittle{
+    color:#f1575b;
+}
 
 /* ----------------------------------- Exchange Rate Component CSS ----------------------------------- */
 /* cp:#272829, bg:#272829  */
+
+.currency_box{
+    display: inline-block;
+}
 .exRateCp{
     background-color: #2c2c2c;
-    border: solid;
+    box-shadow: 5px 5px 5px 5px #222222;
     height: 160px;
     border-radius: 30px;
 }
-
+.excr_box{
+    display: flex;
+    text-align: center;
+    align-items: stretch; /* 자식 요소들이 동일한 높이를 갖도록 설정 */
+}
+.excr_box > .slc_box > .flag.europe {
+    background-image: url("../../../public/images/free-icon-european-union-330426.png");
+    width: 30px;  /* 적절한 너비 설정 */
+    height: 30px; /* 적절한 높이 설정 */
+    display: inline-block;
+    background-size: cover; /* 이미지를 요소 크기에 맞춤 */
+}
+.excr_box > .slc_box > .flag.krw {
+    background-image: url("../../../public/images/free-icon-south-korea-330591.png");
+    width: 30px;  /* 적절한 너비 설정 */
+    height: 30px; /* 적절한 높이 설정 */
+    display: inline-block;
+    background-size: cover; /* 이미지를 요소 크기에 맞춤 */
+}
 .currencyTittle{
     color:#f1575b;
 }
@@ -119,19 +147,59 @@ body {
     color:#f1575b;
     font-weight: bolder;
 }
+.slc_box{display: inline-block}
+.num{
+    display: inline-block;
+}
 ._input{
     color:lightsalmon;
     font-size: 20px;
     font-weight: bolder;
     background-color: #2D2E2F;
-    width: 60%;
+    width: 50%;
     border-radius:5px;
     text-align: right;
+    outline: none;/* 포커싱시 파란 테두리 제거 */
 }
 .excr_eq{ font-weight: bolder; color:#f1575b; display: inline-block; }
 
 
-
-
-
-/* ----------------------------------- Currency CSS ----------------------------------- */
+/* ----------------------------------- save schedule Modal CSS ----------------------------------- */
+._textArea{
+    outline: none;/* 포커싱시 파란 테두리 제거 */
+    height:100px;
+    color:lightsalmon;
+    font-size: 20px;
+    font-weight: bolder;
+    background-color: #2D2E2F;
+    border:none;
+}
+.form.modal_foot > .form-elements button {
+    width:20%;
+    padding:10px;
+    font-size:16px;
+    font-weight:600;
+    margin-top:5px;
+    border-radius:10px;
+    background:#f1575b;
+    color:#f5f5f5;
+    cursor:pointer;
+    border:none;
+    outline:none;
+}
+/*.dd{
+    display:flex;
+    color:#f1575b;
+    background:#272829;
+    borderRadius:20px;
+    width:500px;
+    height: 300px;
+    top:50%;
+    left:50%;
+    right:auto;
+    bottom: auto;
+    marginRight: -50%;
+    transform: translate(-50%, -50%);
+    border:0;
+    fontWeight: bolder;
+}*/

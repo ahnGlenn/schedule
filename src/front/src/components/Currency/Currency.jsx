@@ -47,42 +47,46 @@ function Currency() {
         fetchData(); // 컴포넌트가 마운트될 때 fetchData 호출
     }, []);
 
-    // -----------------------------
     // 환율 계산 로직
-    // -----------------------------
-    const curCal = (e, msg) =>{
-        if(msg == "KRW"){
-            if(e === 0){
+    const curCal = (e, msg) => {
+        const inputValue = e.target.value;
+        if (isNaN(inputValue) || inputValue.trim() === "") {
+            setCalKor(0);
+            setCalEur(0);
+            return;
+        }
+
+        const numVal1 = parseFloat(inputValue);
+        const numVal2 = KOR;
+
+        if (msg === "KRW") {
+            if (numVal1 === 0) {
                 setCalKor(0);
-                setCalEur(0)
-            }else{
-                const numVal1 = parseInt(e.target.value);
-                const numVal2 = KOR;
+                setCalEur(0);
+            } else {
                 setCalKor(numVal1);
-                setCalEur( ((numVal1 / numVal2).toFixed(2)).toLocaleString());
+                setCalEur(parseFloat((numVal1 / numVal2).toFixed(2)).toLocaleString());
             }
-        }else{
-            if(e === 0){
+        } else {
+            if (numVal1 === 0) {
                 setCalKor(0);
-                setCalEur(0)
-            }else{
-                const numVal1 = parseInt(e.target.value);
-                const numVal2 = KOR;
+                setCalEur(0);
+            } else {
                 setCalEur(numVal1);
-                setCalKor( (numVal1 * numVal2).toLocaleString());
+                setCalKor(parseFloat((numVal1 * numVal2).toFixed(2)).toLocaleString());
             }
         }
-    }
+    };
 
     return (
-        <div>
+        <div className="currencyCp">
             <div className="currencyTittle">
                 <div><h1>Exchange Rate</h1></div>
             </div>
-            <div>
-                <div className="excr_box" style={{display: "inline-block"}}>
+            <div className="currency_box">
+                <div className="excr_box">
                     <div className="slc_box _select_wrap">
-                        <span className="flag _flag krw"></span>
+                        <span className="flag _flag europe"></span>
                     </div>
                     <div className="num">
                         <input onChange={(e) => curCal(e, 'EUR')}
@@ -91,11 +95,11 @@ function Currency() {
                                maxLength=""
                                value={calEUR}
                                className="_input"/>
-                        <span className="codeNm"> EUR</span>
+                        <span className="codeNm"> EUR(€)</span>
                     </div>
                 </div>
-                <div className="excr_eq"><span>=</span></div>
-                <div className="excr_box" style={{display: "inline-block"}}>
+                {/*<div className="excr_eq"><span>=</span></div>*/}
+                <div className="excr_box">
                     <div className="slc_box _select_wrap">
                         <span className="flag _flag krw"></span>
                     </div>
@@ -106,8 +110,8 @@ function Currency() {
                                maxLength=""
                                value={calKOR}
                                className="_input"
-                        pattern={}/>
-                        <span className="codeNm"> KRW</span>
+                        />
+                        <span className="codeNm"> KRW(₩)</span>
                     </div>
                 </div>
 
