@@ -96,6 +96,18 @@ body {
     opacity:0;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
 /* ----------------------------------- Full Calendar Component CSS ----------------------------------- */
 
 .calendarCp{
@@ -103,11 +115,70 @@ body {
     background-color: #2c2c2c;
     border-radius: 30px;
     margin-right: 1%;
+    padding: 25px;
+
+    height: 750px;
 }
 
 .calendarTittle{
     color:#f1575b;
 }
+
+/* month year */
+.fc-toolbar-title{
+    color: #f5f5f5;
+    font-weight: bolder;
+    font-size: 30px !important;
+}
+
+/* 일요일 날짜: 빨간색 */
+.fc-day a {
+    font-weight: bolder;
+    color:#C3C3C3;
+}
+
+/* 주말 날짜: 빨간색 */
+.fc-day-sun a, .fc-day-sat a {
+    font-weight: bolder;
+    color:#f1575b;
+}
+
+/* 달력 내 버튼 색상 */
+.fc-header-toolbar > .fc-toolbar-chunk > button{
+    padding:10px;
+    font-size:16px;
+    font-weight:600;
+    margin-top:5px;
+    border-radius:10px;
+    background:#2c2c2c;
+    color:#f5f5f5;
+    cursor:pointer;
+    border:none;
+    outline:none;
+}
+.headerToolbar{
+    background:#f1575b;
+    color:#f5f5f5;
+}
+/* 오늘날짜 배경색 커스텀 */
+/* 오늘 날짜의 배경색을 변경하는 CSS */
+.fc .fc-day-today {
+    background-color: rgba(241, 87, 91, 0.3) !important; /* #f1575b 색상에 50% 투명도 적용 */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* ----------------------------------- Exchange Rate Component CSS ----------------------------------- */
 /* cp:#272829, bg:#272829  */
@@ -120,6 +191,8 @@ body {
     box-shadow: 5px 5px 5px 5px #222222;
     height: 160px;
     border-radius: 30px;
+    padding: 20px;
+    /*margin-right: 1%;*/
 }
 .excr_box{
     display: flex;
@@ -127,21 +200,21 @@ body {
     align-items: stretch; /* 자식 요소들이 동일한 높이를 갖도록 설정 */
 }
 .excr_box > .slc_box > .flag.europe {
-    background-image: url("../../../public/images/free-icon-european-union-330426.png");
+    /*background-image: url("../../../public/images/free-icon-european-union-330426.png");*/
     width: 30px;  /* 적절한 너비 설정 */
     height: 30px; /* 적절한 높이 설정 */
     display: inline-block;
     background-size: cover; /* 이미지를 요소 크기에 맞춤 */
 }
 .excr_box > .slc_box > .flag.krw {
-    background-image: url("../../../public/images/free-icon-south-korea-330591.png");
+    /*background-image: url("../../../public/images/free-icon-south-korea-330591.png");*/
     width: 30px;  /* 적절한 너비 설정 */
     height: 30px; /* 적절한 높이 설정 */
     display: inline-block;
     background-size: cover; /* 이미지를 요소 크기에 맞춤 */
 }
 .currencyTittle{
-    color:#f1575b;
+    color:#f5f5f5;
 }
 .codeNm{
     color:#f1575b;
@@ -152,7 +225,7 @@ body {
     display: inline-block;
 }
 ._input{
-    color:lightsalmon;
+    color:#f5f5f5;
     font-size: 20px;
     font-weight: bolder;
     background-color: #2D2E2F;
@@ -162,6 +235,11 @@ body {
     outline: none;/* 포커싱시 파란 테두리 제거 */
 }
 .excr_eq{ font-weight: bolder; color:#f1575b; display: inline-block; }
+
+
+
+
+
 
 
 /* ----------------------------------- save schedule Modal CSS ----------------------------------- */
@@ -193,4 +271,54 @@ body {
 }
 .modal_foot > .form-elements{
     text-align: center;
+}
+
+
+
+
+
+
+
+/* ----------------------------------- Google Map CSS ----------------------------------- */
+.mapCp{
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 수직 가운데 정렬 */
+    justify-content: center; /* 수평 가운데 정렬 */
+
+    background-color: #2c2c2c;
+    box-shadow: 5px 5px 5px 5px #222222;
+    width: 500px;
+    height: 870px;
+    border-radius: 30px;
+    margin-right: 1%;
+}
+.mapCp2{
+    height: 100%;
+}
+.mapTittle {
+    font-size: 30px;
+    font-weight: bolder;
+    color:#f5f5f5;
+    margin-bottom: 20px; /* 제목과 지도 사이 여백 조정 */
+    height: 5%;
+    padding: 21px;
+}
+.mapList{
+    margin-top: 3%;
+}
+.mapList_contents {
+    border-collapse: collapse; /* 테이블 셀 경계를 병합하여 테이블의 경계선을 만듭니다. */
+}
+
+/* mapList 테이블 css */
+.mapList_contents th,
+.mapList_contents td {
+    text-align: center;
+    color: #f5f5f5;
+}
+
+/* mapList 테이블 > 엄청 얇은 구분선 스타일 */
+.mapList_contents .splitLine {
+    transform: scaleY(0.10);
 }
