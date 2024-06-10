@@ -60,20 +60,25 @@ function Calendar() {
 
     return (
         <div className="calendar">
+            {/*
             <div className="calendarTittle">
                 <h1>Schedule</h1>
             </div>
-            {/*<h2>Porca Eva! Basta!!! Sono stufo delle tue scuse</h2>
-                <h3>Danm! Enough! I'm tired of your excuses</h3>*/}
+            */}
             <FullCalendar
                 // 날짜 클릭 시 이벤트 발생
                 dateClick={dateClick}
                 defaultView="dayGridMonth"
                 plugins={[dayGridPlugin, interactionPlugin]}
                 events={[
-                    { title: 'event1' ,start:'2024-06-09', end:'2024-06-11'},
-                    { title: 'hihih', date: '2024-06-20', color: 'green',  editable: true,  droppable: true }
+                    { title: 'event1' ,start:'2024-06-09', end:'2024-06-11', color: '#FF7676'},
+                    { title: 'hihih', date: '2024-06-20', color: '#EFB495',  editable: true,  droppable: true }
                 ]}
+                headerToolbar={{
+                    left: 'prev',
+                    center: 'title',
+                    right: 'next'
+                }}
             />
             <Modal isOpen={modalIsOpen} style={customStyles}>
                 <div style={{flex:'1'}}>{/* 부모div에 자식div가 딱 맞게 */}
