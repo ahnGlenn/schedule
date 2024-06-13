@@ -2,6 +2,7 @@ import Calendar from './calendar'; // Calendar 컴포넌트 import
 import React from "react";
 import Currency from "../../components/Currency/Currency";
 import Map from "../Main/map";
+import Weather from "../../components/weather/Weather";
 
 /********************************
  MainPage after success login
@@ -21,6 +22,9 @@ function MainPage() {
             </div>
             <div className="exRateCp" style={{width: '28%'}}>
                 <Currency/>
+            </div>
+            <div className="exRateCp" style={{width: '28%'}}>
+                <Weather/>
             </div>
         </div>
     );
