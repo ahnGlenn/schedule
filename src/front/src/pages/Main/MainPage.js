@@ -23,9 +23,9 @@ function MainPage() {
             <div className="exRateCp" style={{width: '28%'}}>
                 <Currency/>
             </div>
-            <div className="exRateCp" style={{width: '28%'}}>
+            {/*<div className="exRateCp" style={{width: '28%'}}>
                 <Weather/>
-            </div>
+            </div>*/}
         </div>
     );
 }
