@@ -1,13 +1,28 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { GoogleMap, LoadScript, StandaloneSearchBox, Marker } from '@react-google-maps/api';
 
 function Map() {
     const mapRef = useRef(null);
-    const inputRef = useRef(null);
-    const [map, setMap] = useState(null);
-    const [autocomplete, setAutocomplete] = useState(null);
+    const [markers, setMarkers] = useState([]);  // for marker on the map
+    const searchBoxRef = useRef(null); // for searchBox on the map
+    const [selectedPlace, setSelectedPlace] = useState(null); // information about selected place
+    const [center, setCenter] = useState({ // latitude & longitude for Center(seoul)
+        lat: 37.5665,
+        lng: 126.9780,
+    });
 
-    // latitude & longitude
-    //----------------------------
+    // -----------------------------
+    // map size(mapContainerStyle을 이용해 GoogleMap 컨테이너 스타일링:)
+    // -----------------------------
+    const mapContainerStyle = {
+        height: "370px",
+        width: "100%",
+    };
+
+
+    // -----------------------------
+    // CSS for nightModeStyle
+    // -----------------------------
     var nightModeStyle = [
         { elementType: 'geometry', stylers: [{ color: '#242f3e' }] },
         { elementType: 'labels.text.stroke', stylers: [{ color: '#242f3e' }] },
@@ -29,135 +44,186 @@ function Map() {
         { featureType: 'water', elementType: 'labels.text.stroke', stylers: [{ color: '#17263c' }] }
     ];
 
-    // const initMap = useCallback(()   => {
-    //     const map = new window.google.maps.Map(mapRef.current, {
-    //         center: { lat: 37.5665, lng: 126.9780 },
-    //         zoom: 11,
-    //         styles: nightModeStyle,
-    //         mapTypeControl: false
-    //     });
-    //
-    //     setMap(map);
-    // }, [mapRef]);
 
-    const initMap = useCallback(() => {
-        const googleMap = new window.google.maps.Map(mapRef.current, {
-            center: { lat: 37.5665, lng: 126.9780 },
-            zoom: 11,
-            styles: nightModeStyle,
-            mapTypeControl: false  // 지도, 위성 버튼 제거
-        });
-    }, [mapRef]);
+    // -----------------------------
+    // useEffect에서 직접적으로 지도를 초기화하는 부분을 제거하고,
+    // GoogleMap 컴포넌트의 onLoad를 이용해 초기화.
+    // -----------------------------
+    const onLoadMap = useCallback((map) => {
+        mapRef.current = map;
+    }, []);
 
-    const initAutocomplete = useCallback(() => {
-        if (!map) return; // map 객체가 설정되지 않은 경우 종료
 
-        const autocompleteInstance = new window.google.maps.places.Autocomplete(inputRef.current);
-        autocompleteInstance.bindTo('bounds', map);
-        autocompleteInstance.setFields(['address_components', 'geometry', 'icon', 'name']);
-        autocompleteInstance.addListener('place_changed', () => {
-            const place = autocompleteInstance.getPlace();
+    const onLoadSearchBox = useCallback((ref) => {
+        searchBoxRef.current = ref;
+    }, []);
 
-            if (!place.geometry) {
-                console.log("Returned place contains no geometry");
-                return;
+
+    const onPlacesChanged = useCallback(() => {
+
+        if (!searchBoxRef.current || !searchBoxRef.current.getPlaces) {
+            return;
+        }
+
+        const places = searchBoxRef.current.getPlaces();
+        if (!places || places.length === 0) { // places가 undefined 또는 null인 경우 처리
+            return;
+        }
+
+        const bounds = new window.google.maps.LatLngBounds();
+
+        const newMarkers = places.map((place) => {
+            if (!place.geometry || !place.geometry.location) return null;
+
+            const position = {
+                lat: place.geometry.location.lat(),
+                lng: place.geometry.location.lng(),
+            };
+
+            bounds.extend(position);
+
+            return {
+                position,
+                title: place.name,
+            };
+        }).filter(marker => marker !== null);
+
+        setMarkers(newMarkers);
+
+        if (newMarkers.length > 0) {
+            const { lat, lng } = newMarkers[0].position;
+            setCenter({ lat, lng });
+            if (mapRef.current) {
+                mapRef.current.setZoom(15);
             }
+        } else if (mapRef.current) {
+            mapRef.current.fitBounds(bounds);
+        }
 
-            if (place.geometry.viewport) {
-                map.fitBounds(place.geometry.viewport);
+        // Set selected place to the first result for simplicity
+        setSelectedPlace(places[0]);
+    }, []);
+
+
+    // -----------------------------
+    // 선택한 장소의 정보 상세정보 가져오기(별점, 리뷰, 번호 등)
+    // Fetch additional details for selected place
+    // -----------------------------
+    const fetchPlaceDetails = useCallback(() => {
+        if (!selectedPlace || !selectedPlace.place_id) {
+            return;
+        }
+
+        const service = new window.google.maps.places.PlacesService(mapRef.current);
+
+        console.log("selectedPlace : " + selectedPlace);
+
+        service.getDetails({
+            placeId: selectedPlace.place_id,
+        }, (place, status) => {
+            if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+                // 여기서 place 객체에 선택한 장소의 세부 정보가 포함됩니다.
+                // place 객체에서 필요한 데이터 (리뷰, 별점, 가격 등)를 가져와 활용할 수 있습니다.
+                console.log('Place details:', JSON.stringify(place));
+                console.log('Place name:', place.name , '\n', );
             } else {
-                map.setCenter(place.geometry.location);
-                map.setZoom(17);
+                console.error('Error fetching place details:', status);
             }
         });
+    }, [selectedPlace]);
 
-        setAutocomplete(autocompleteInstance);
-    }, [map, inputRef]);
 
-    const handleSearch = () => {
-        // if (!autocomplete || !map) return; // autocomplete 또는 map 객체가 설정되지 않은 경우 종료
-
-        const place = autocomplete.getPlace();
-        if (!place.geometry) {
-            console.log("Returned place contains no geometry");
-            return;
-        }
-
-        if (place.geometry.viewport) {
-            map.fitBounds(place.geometry.viewport);
-        } else {
-            map.setCenter(place.geometry.location);
-            map.setZoom(17);
-        }
-    };
-
-    useEffect(() => {
-        if (!window.google) {
-            console.error("Google Maps JavaScript API is not loaded.");
-            return;
-        }
-
-        initMap();
-    }, [initMap]);
-
-    // useEffect(() => {
-    //     if (!window.google) {
-    //         console.error("Google Maps JavaScript API is not loaded.");
-    //         return;
-    //     }
-    //
-    //     initAutocomplete();
-    // }, [map, initAutocomplete]);
+    // -----------------------------
+    // 예시 데이터: 각 장소의 위치(위도, 경도)를 배열로 저장
+    // -----------------------------
+    const locations = [
+        { id: 1, lat: 37.5665, lng: 126.9780, name: 'Seoul' },
+        { id: 2, lat: 40.7128, lng: -74.0060, name: 'New York' },
+        { id: 3, lat: 51.5074, lng: -0.1278, name: 'London' },
+        // 원하는 만큼 추가할 수 있습니다......
+    ];
 
     return (
-        <div className="mapCp2">
-            <div className="mapTittle">
-                <span>Wish List</span>
-            </div>
-            <div style={{width:'480px'}}>
-                <input
-                    type="text"
-                    placeholder="Search places..."
-                    ref={inputRef}
-                    style={{
-                        boxSizing: 'border-box',
-                        border: '1px solid transparent',
-                        width: 'calc(100% - 40px)', // Adjust width to fit button
-                        height: '32px',
-                        padding: '0 12px',
-                        borderRadius: '3px 0 0 3px', // Round left side only
-                        boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)',
-                        fontSize: '14px',
-                        outline: 'none',
-                        textOverflow: 'ellipsis',
-                        position: 'relative',
-                        marginBottom: '12px'
-                    }}
-                />
-                <button onClick={handleSearch} style={{
-                    width: '40px',
-                    height: '32px',
-                    borderRadius: '0 3px 3px 0', // Round right side only
-                    border: '1px solid transparent',
-                    boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)',
-                    backgroundColor: '#fff',
-                    cursor: 'pointer'
-                }}>Go</button>
-                <div className="map"
-                     style={{
-                                width: "100%",
-                                height: "370px",
-                            }}
-                     ref={mapRef}>
+        <LoadScript googleMapsApiKey="AIzaSyBtTC0UAZQ7v34JpqiG63iYRVgCS1UpfUg" libraries={["places"]}>
+            <div className="mapCp2">
+                <div className="mapTittle">
+                    <span>Wish List</span>
                 </div>
-            </div>
-            <div className="mapList">
-                <table className="mapList_contents">
-                    <tbody>
+                <div style={{width: '480px', position: 'relative'}}>
+                    <StandaloneSearchBox
+                        onLoad={onLoadSearchBox}
+                        onPlacesChanged={onPlacesChanged}
+                    >
+                        <input
+                            type="text"
+                            placeholder="Search place...."
+                            style={{
+                                boxSizing: `border-box`,
+                                border: `1px solid transparent`,
+                                width: `240px`,
+                                height: `32px`,
+                                padding: `0 12px`,
+                                borderRadius: `3px`,
+                                boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+                                fontSize: `14px`,
+                                outline: `none`,
+                                textOverflow: `ellipses`,
+                                position: "absolute",
+                                left: "50%",
+                                marginLeft: "-120px",
+                                top: "10px",
+                                zIndex: 10,
+                                background: "#2D2E2F",
+                                color: "#f5f5f5"
+                            }}
+                        />
+                    </StandaloneSearchBox>
+                    <GoogleMap
+                        mapContainerStyle={mapContainerStyle}
+                        zoom={11}
+                        center={center}
+                        onLoad={onLoadMap}
+                        options={{
+                            styles: nightModeStyle,
+                            mapTypeControl: false,
+                        }}
+                    >
+                        {markers.map((marker, index) => (
+                            <Marker key={index} position={marker.position} title={marker.title}
+                                    onClick={fetchPlaceDetails}
+                                    icon={{
+                                        url: '/images/map_marker_star.png', // 사용자 정의 마커 이미지 경로 설정
+                                        scaledSize: new window.google.maps.Size(40, 40), // 이미지 크기 조정
+                                        origin: new window.google.maps.Point(0, 0), // 이미지의 원점 설정
+                                        anchor: new window.google.maps.Point(20, 40), // 마커의 기준점(정중앙 아래) 설정
+                                    }}
+                            />
+                        ))}
+
+                        {/*{locations.map((location) => (
+                            <Marker
+                                key={location.id}
+                                position={{ lat: location.lat, lng: location.lng }}
+                                title={location.name} // 마커에 툴팁으로 표시될 이름 설정
+                                icon={{
+                                    url: customMarkerImage, // 사용자 정의 마커 이미지 경로 설정
+                                    scaledSize: new window.google.maps.Size(40, 40), // 이미지 크기 조정
+                                    origin: new window.google.maps.Point(0, 0), // 이미지의 원점 설정
+                                    anchor: new window.google.maps.Point(20, 40), // 마커의 기준점(정중앙 아래) 설정
+                                }}
+                            />
+                        ))}*/}
+                    </GoogleMap>
+                </div>
+                <div className="mapList">
+                    <table className="mapList_contents">
+                        <tbody>
                         <tr>
                             <th rowSpan="2" style={{fontSize: '30px', padding: '15px'}}>1</th>
-                            <td style={{fontSize: '20px', textAlign: "left", fontWeight: "bolder"}}>백종원의 골목식당<span
-                                className="goDate">[12/22]</span></td>
+                            <td style={{fontSize: '20px', textAlign: "left", fontWeight: "bolder"}}>
+                                백종원의 골목식당
+                                <span className="goDate">[12/22]</span>
+                            </td>
                         </tr>
                         <tr>
                             <td style={{fontSize: '15px', textAlign: "left"}}>
@@ -165,33 +231,12 @@ function Map() {
                                 <hr className="splitLine" style={{color: '#c3c3c3', width: '100%'}}/>
                             </td>
                         </tr>
-                        <tr>
-                            <th rowSpan="2" style={{fontSize: '30px', padding: '15px'}}>2</th>
-                            <td style={{fontSize: '20px', textAlign: "left", fontWeight: "bolder"}}>백종원의 골목식당<span
-                                className="goDate">[12/22]</span></td>
-                        </tr>
-                        <tr>
-                            <td style={{fontSize: '15px', textAlign: "left"}}>
-                                냉동삼겹살이 맛있는 집으로 소문나있음. 꼭가봐야해서 저장
-                                <hr className="splitLine" style={{color: '#c3c3c3', width: '100%'}}/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th rowSpan="2" style={{fontSize: '30px', padding: '15px'}}>3</th>
-                            <td style={{fontSize: '20px', textAlign: "left", fontWeight: "bolder"}}>백종원의 골목식당<span
-                                className="goDate">[12/22]</span></td>
-                        </tr>
-                        <tr>
-                            <td style={{fontSize: '15px', textAlign: "left"}}>
-                                냉동삼겹살이 맛있는 집으로 소문나있음. 꼭가봐야해서 저장
-                                <hr className="splitLine" style={{color: '#c3c3c3', width: '100%'}}/>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
+        </LoadScript>
     );
-}
+};
 
 export default Map;
