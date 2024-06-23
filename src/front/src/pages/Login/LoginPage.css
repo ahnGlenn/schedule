@@ -200,14 +200,14 @@ body {
     align-items: stretch; /* 자식 요소들이 동일한 높이를 갖도록 설정 */
 }
 .excr_box > .slc_box > .flag.europe {
-    /*background-image: url("../../../public/images/free-icon-european-union-330426.png");*/
+    background-image: url("../../../public/images/free-icon-european-union-330426.png");
     width: 30px;  /* 적절한 너비 설정 */
     height: 30px; /* 적절한 높이 설정 */
     display: inline-block;
     background-size: cover; /* 이미지를 요소 크기에 맞춤 */
 }
 .excr_box > .slc_box > .flag.krw {
-    /*background-image: url("../../../public/images/free-icon-south-korea-330591.png");*/
+    background-image: url("../../../public/images/free-icon-south-korea-330591.png");
     width: 30px;  /* 적절한 너비 설정 */
     height: 30px; /* 적절한 높이 설정 */
     display: inline-block;
