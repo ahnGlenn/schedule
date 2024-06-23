@@ -1,5 +1,6 @@
 import React, { useCallback, useRef, useState } from "react";
 import { GoogleMap, LoadScript, StandaloneSearchBox, Marker } from '@react-google-maps/api';
+import Modal from "react-modal";
 
 function Map() {
     const mapRef = useRef(null);
@@ -10,6 +11,10 @@ function Map() {
         lat: 37.5665,
         lng: 126.9780,
     });
+
+    // 지도 save모달
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [title, setTitle] = useState(null);
 
     // -----------------------------
     // map size(mapContainerStyle을 이용해 GoogleMap 컨테이너 스타일링:)
@@ -110,6 +115,7 @@ function Map() {
     // Fetch additional details for selected place
     // -----------------------------
     const fetchPlaceDetails = useCallback(() => {
+        alert("zclick");
         if (!selectedPlace || !selectedPlace.place_id) {
             return;
         }
@@ -124,8 +130,14 @@ function Map() {
             if (status === window.google.maps.places.PlacesServiceStatus.OK) {
                 // 여기서 place 객체에 선택한 장소의 세부 정보가 포함됩니다.
                 // place 객체에서 필요한 데이터 (리뷰, 별점, 가격 등)를 가져와 활용할 수 있습니다.
-                console.log('Place details:', JSON.stringify(place));
-                console.log('Place name:', place.name , '\n', );
+                // console.log('Place details:', JSON.stringify(place));
+                // console.log('Place name:', place.name , '\n', );
+
+
+                // 모달창 생성해서
+                setModalIsOpen(true);
+                setTitle(place.name);
+
             } else {
                 console.error('Error fetching place details:', status);
             }
@@ -142,6 +154,22 @@ function Map() {
         { id: 3, lat: 51.5074, lng: -0.1278, name: 'London' },
         // 원하는 만큼 추가할 수 있습니다......
     ];
+
+
+
+    // -----------------------------
+    // modal style setting
+    // -----------------------------
+    const customStyles = {
+        content: {
+            display:'flex', color:'#f1575b', background:'#272829', borderRadius: '20px',
+            width: '500px', height: '350px', top: '50%', left: '50%', right: 'auto',
+            bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)', border:'0', fontWeight: 'bolder', fontFamily:'',
+        },
+        overlay: {
+            zIndex: 1000,
+            backgroundColor: 'rgba(0, 0, 0, 0.75)'}
+    };
 
     return (
         <LoadScript googleMapsApiKey="AIzaSyBtTC0UAZQ7v34JpqiG63iYRVgCS1UpfUg" libraries={["places"]}>
@@ -235,6 +263,27 @@ function Map() {
                     </table>
                 </div>
             </div>
+            <Modal isOpen={modalIsOpen} style={customStyles}>
+                <div style={{flex:'1'}}>{/* 부모div에 자식div가 딱 맞게 */}
+                    <div className="modal_head">
+                        <h1><span className="date">{title}</span><a onClick={()=> setModalIsOpen(false)} style={{float:"right"}}>X</a></h1>
+                    </div>
+                    <div className="modal_body">
+                        <div>
+                            <label>Title </label>
+                            <input className="_input" id="title" type="text" value={title} />
+                        </div>
+                    </div>
+                    <div className="modal_foot">
+                        <div className="form-elements">
+                            <div className="form-element">
+                                <button>save</button>
+                                <button onClick={()=> setModalIsOpen(false)}>close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </Modal>
         </LoadScript>
     );
 };
