@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 
 import Modal from 'react-modal';
 import FullCalendar from '@fullcalendar/react';
@@ -9,7 +9,7 @@ import axios from "axios";
 /**********************************
  Calender Component for MainPage.js
  **********************************/
-function Calendar() {
+function Calendar({ scheduleData }) {
     // -----------------------------
     // manage state
     // -----------------------------
@@ -92,6 +92,7 @@ function Calendar() {
         setMemo(memo);
     };
 
+
     return (
         <div className="calendar">
             {/*
@@ -104,10 +105,7 @@ function Calendar() {
                 dateClick={dateClick}
                 defaultView="dayGridMonth"
                 plugins={[dayGridPlugin, interactionPlugin]}
-                events={[
-                    { title: 'event1' ,start:'2024-06-09', end:'2024-06-11', color: '#FF7676'},
-                    { title: 'hihih', date: '2024-06-20', color: '#EFB495',  editable: true,  droppable: true }
-                ]}
+                events={scheduleData}
                 headerToolbar={{
                     left: 'prev',
                     center: 'title',
@@ -121,15 +119,19 @@ function Calendar() {
                     </div>
                     <div className="modal_body">
                         <div>
+                            <label>Title </label>
                             <input className="_input" id="title" type="text" onChange={handleTitleChange} />
                         </div>
                         <div className="divDt">
+                            <label>Start Date </label>
                             <input className="_input" id="startDt" type="date" value={startDate} readOnly />
                         </div>
                         <div className="divDt">
+                            <label>End Date </label>
                             <input className="_input" id="endDt" type="date" value={endDate} onChange={handleDateChange} />
                         </div>
                         <div className="memo" style={{display:'flex'}}>
+                            <label>Memo </label>
                             <textarea className="_textArea" id="memo" onChange={handleMemoChange} style={{flex:'1'}}></textarea>
                         </div>
                     </div>
