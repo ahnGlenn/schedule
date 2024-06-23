@@ -40,7 +40,7 @@ function MainPage() {
         <div style={{display: 'flex', height: '100%'}}>
             <div className="calendarCp" style={{width: '50%'}}>
                 <div className="inner_calendarCp">
-                    <Calendar scheduleData={scheduleData} />
+                    <Calendar scheduleData={scheduleData} fetchScheduleData={fetchScheduleData} />
                 </div>
             </div>
             <div className="mapCp" style={{width: '50%'}}>

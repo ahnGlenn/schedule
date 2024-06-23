@@ -9,7 +9,7 @@ import axios from "axios";
 /**********************************
  Calender Component for MainPage.js
  **********************************/
-function Calendar({ scheduleData }) {
+function Calendar({ scheduleData, fetchScheduleData }) {
     // -----------------------------
     // manage state
     // -----------------------------
@@ -58,6 +58,7 @@ function Calendar({ scheduleData }) {
             const result = response.data;
             if(result === 1) {
                 setModalIsOpen(false);
+                fetchScheduleData(); // 새로고침 없이 새로운 데이터로 캘린더 업데이트
             }else{
                 alert("failed");
             }
