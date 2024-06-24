@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.ours.OursApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-05-06T15:15:18" hostname="ansangjaes-MacBook-Air.local" time="0.515">
+  <properties/>
+  <testcase name="contextLoads()" classname="com.example.ours.OursApplicationTests" time="0.515"/>
+  <system-out><![CDATA[00:15:17.299 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.ours.OursApplicationTests]: OursApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+00:15:17.389 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.ours.OursApplication for test class com.example.ours.OursApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.5)
+
+2024-05-07T00:15:17.657+09:00  INFO 802 --- [ours] [    Test worker] com.example.ours.OursApplicationTests    : Starting OursApplicationTests using Java 18 with PID 802 (started by ansangjae in /Users/ansangjae/IdeaProjects/ours)
+2024-05-07T00:15:17.658+09:00  INFO 802 --- [ours] [    Test worker] com.example.ours.OursApplicationTests    : No active profile set, falling back to 1 default profile: "default"
+2024-05-07T00:15:18.504+09:00  INFO 802 --- [ours] [    Test worker] com.example.ours.OursApplicationTests    : Started OursApplicationTests in 1.009 seconds (process running for 2.015)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
