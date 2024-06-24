@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -25,14 +26,22 @@ public class ScheduleController {
     @Autowired
     private ScheduleService scheduleService;
 
+    /*
+    *  메인페이지 시작시 모든 스케줄 리스트를 가져옴(캘린더 표출 용)
+    */
     @GetMapping(value = "/list")
     public List<ScheduleDto> searchList(){
+
+        log.info(">>>>>>>>>> Search Schedule list >>>>>>>>>>");
         try {
+
+            // search all schedule list
             List<ScheduleDto> schduleList = scheduleService.searchSchedule();
             return schduleList;
+
         }catch (Exception e){
-            e.getStackTrace();
-            return null;
+            e.printStackTrace(); // 예외 출력
+            return Collections.emptyList(); // 빈 리스트 반환
         }
     };
 
@@ -49,6 +58,7 @@ public class ScheduleController {
             String requestURI = request.getRequestURI();
             if (requestURI.endsWith("/save")) {
                 log.info(">>>>>>>>>> Save Schedule >>>>>>>>>>");
+                scheduleDto.setUserId("dkstkdwo93@naver.com");
                 scheduleService.saveSchedule(scheduleDto);
 
             } else if (requestURI.endsWith("/update")) {
