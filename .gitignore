@@ -14,3 +14,13 @@ node_modules/
 
 #intellij project files
 .idea
+
+# Ignore lock files
+*.lock
+# Ignore class files
+*.class
+# Ignore binary files
+*.bin
+
+# Ignore JSON files
+#*.json
