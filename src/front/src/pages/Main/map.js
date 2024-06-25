@@ -15,7 +15,8 @@ function Map() {
 
     // 지도 save모달
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [title, setTitle] = useState(null);
+    const [name, setName] = useState(null);
+    const [address, setAddress] = useState(null);
 
     // -----------------------------
     // map size(mapContainerStyle을 이용해 GoogleMap 컨테이너 스타일링:)
@@ -130,13 +131,14 @@ function Map() {
             if (status === window.google.maps.places.PlacesServiceStatus.OK) {
                 // 여기서 place 객체에 선택한 장소의 세부 정보가 포함됩니다.
                 // place 객체에서 필요한 데이터 (리뷰, 별점, 가격 등)를 가져와 활용할 수 있습니다.
-                // console.log('Place details:', JSON.stringify(place));
+                console.log('Place details:', JSON.stringify(place));
                 // console.log('Place name:', place.name , '\n', );
 
 
-                // 모달창 생성해서
-                setModalIsOpen(true);
-                setTitle(place.name);
+                // 모달창에 정보 출력
+                setModalIsOpen(true); // 모달 on
+                setName(place.name); // 장소명
+                setAddress(place.formatted_address); // 장소 주소
 
             } else {
                 console.error('Error fetching place details:', status);
@@ -261,21 +263,27 @@ function Map() {
                     </table>
                 </div>
             </div>
+
+
             <Modal isOpen={modalIsOpen} style={customStyles}>
                 <div style={{flex:'1'}}>{/* 부모div에 자식div가 딱 맞게 */}
                     <div className="modal_head">
-                        <h1><span className="date">{title}</span><a onClick={()=> setModalIsOpen(false)} style={{float:"right"}}>X</a></h1>
+                        <h1><span className="date">{name}</span></h1>
                     </div>
                     <div className="modal_body">
                         <div>
-                            <label>Title </label>
-                            <input className="_input" id="title" type="text" value={title} />
+                            <label>Name </label>
+                            <input className="_input" id="name" type="text" value={name}/>
+                        </div>
+                        <div>
+                            <label>Address </label>
+                            <input className="_input" id="address" type="text" value={address}/>
                         </div>
                     </div>
                     <div className="modal_foot">
                         <div className="form-elements">
                             <div className="form-element">
-                                <button onClick={saveWishList}>save</button>
+                            <button onClick={saveWishList}>save</button>
                                 <button onClick={()=> setModalIsOpen(false)}>close</button>
                             </div>
                         </div>
