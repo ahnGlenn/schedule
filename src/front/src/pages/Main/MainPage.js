@@ -1,8 +1,7 @@
-import Calendar from './calendar'; // Calendar 컴포넌트 import
+import Calendar from './calendar';
 import React, {useEffect, useState} from "react";
 import Currency from "../../components/Currency/Currency";
 import Map from "../Main/map";
-import Weather from "../../components/weather/Weather";
 
 /********************************
  MainPage after success login
@@ -37,21 +36,18 @@ function MainPage() {
     }, []);
 
     return (
-        <div style={{display: 'flex', height: '100%'}}>
-            <div className="calendarCp" style={{width: '50%'}}>
+        <div className="main_container">
+            <div className="calendarCp">
                 <div className="inner_calendarCp">
                     <Calendar scheduleData={scheduleData} fetchScheduleData={fetchScheduleData} />
                 </div>
             </div>
-            <div className="mapCp" style={{width: '50%'}}>
+            <div className="mapCp">
                 <Map/>
             </div>
-            <div className="exRateCp" style={{width: '28%'}}>
+            <div className="exRateCp">
                 <Currency/>
             </div>
-            {/*<div className="exRateCp" style={{width: '28%'}}>
-                <Weather/>
-            </div>*/}
         </div>
     );
 }

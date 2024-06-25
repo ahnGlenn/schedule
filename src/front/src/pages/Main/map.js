@@ -1,6 +1,7 @@
 import React, { useCallback, useRef, useState } from "react";
 import { GoogleMap, LoadScript, StandaloneSearchBox, Marker } from '@react-google-maps/api';
 import Modal from "react-modal";
+import axios from "axios";
 
 function Map() {
     const mapRef = useRef(null);
@@ -21,7 +22,7 @@ function Map() {
     // -----------------------------
     const mapContainerStyle = {
         height: "370px",
-        width: "100%",
+        width: "150%",
     };
 
 
@@ -115,7 +116,6 @@ function Map() {
     // Fetch additional details for selected place
     // -----------------------------
     const fetchPlaceDetails = useCallback(() => {
-        alert("zclick");
         if (!selectedPlace || !selectedPlace.place_id) {
             return;
         }
@@ -156,7 +156,30 @@ function Map() {
     ];
 
 
-
+    // -----------------------------
+    // map에서 wishList를 저장하는 작업
+    // -----------------------------
+    const saveWishList = async () => {
+        // try {
+        //     const response = await axios.post("/api/schedule/save", {
+        //         startDate: startDate,
+        //         endDate: endDate,
+        //         title: title,
+        //         memo: memo
+        //     });
+        //     const result = response.data;
+        //     if(result === 1) {
+        //         setModalIsOpen(false);
+        //         fetchScheduleData(); // 새로고침 없이 새로운 데이터로 캘린더 업데이트
+        //     }else{
+        //         alert("failed");
+        //     }
+        //
+        // } catch(error) {
+        //     console.error("오류 발생:", error);
+        // }
+    }
+    
     // -----------------------------
     // modal style setting
     // -----------------------------
@@ -177,37 +200,12 @@ function Map() {
                 <div className="mapTittle">
                     <span>Wish List</span>
                 </div>
-                <div style={{width: '480px', position: 'relative'}}>
-                    <StandaloneSearchBox
-                        onLoad={onLoadSearchBox}
-                        onPlacesChanged={onPlacesChanged}
-                    >
-                        <input
-                            type="text"
-                            placeholder="Search place...."
-                            style={{
-                                boxSizing: `border-box`,
-                                border: `1px solid transparent`,
-                                width: `240px`,
-                                height: `32px`,
-                                padding: `0 12px`,
-                                borderRadius: `3px`,
-                                boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-                                fontSize: `14px`,
-                                outline: `none`,
-                                textOverflow: `ellipses`,
-                                position: "absolute",
-                                left: "50%",
-                                marginLeft: "-120px",
-                                top: "10px",
-                                zIndex: 10,
-                                background: "#2D2E2F",
-                                color: "#f5f5f5"
-                            }}
-                        />
+                <div className="map-container">
+                    <StandaloneSearchBox onLoad={onLoadSearchBox} onPlacesChanged={onPlacesChanged} >
+                        <input className="search-box" type="text" placeholder="Search place...." />
                     </StandaloneSearchBox>
                     <GoogleMap
-                        mapContainerStyle={mapContainerStyle}
+                        mapContainerClassName="map-container"
                         zoom={11}
                         center={center}
                         onLoad={onLoadMap}
@@ -277,7 +275,7 @@ function Map() {
                     <div className="modal_foot">
                         <div className="form-elements">
                             <div className="form-element">
-                                <button>save</button>
+                                <button onClick={saveWishList}>save</button>
                                 <button onClick={()=> setModalIsOpen(false)}>close</button>
                             </div>
                         </div>
