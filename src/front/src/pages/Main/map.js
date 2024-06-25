@@ -3,20 +3,25 @@ import { GoogleMap, LoadScript, StandaloneSearchBox, Marker } from '@react-googl
 import Modal from "react-modal";
 import axios from "axios";
 
-function Map() {
+function Map({wishListData, fetchWishListData}) {
     const mapRef = useRef(null);
     const [markers, setMarkers] = useState([]);  // for marker on the map
     const searchBoxRef = useRef(null); // for searchBox on the map
     const [selectedPlace, setSelectedPlace] = useState(null); // information about selected place
-    const [center, setCenter] = useState({ // latitude & longitude for Center(seoul)
-        lat: 37.5665,
-        lng: 126.9780,
-    });
+    const [center, setCenter] = useState({ lat: 37.5665, lng: 126.9780 }); // latitude & longitude for Center(seoul)
 
     // 지도 save모달
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [name, setName] = useState(null);
     const [address, setAddress] = useState(null);
+    const [latitude, setLatitude] = useState(null);
+    const [longitude, setLongitude] = useState(null);
+    const [phoneNumber, setPhoneNumber] = useState(null);
+    const [website, setWebsite] = useState(null);
+    const [rating, setRating] = useState(null);
+    const [totalRating, setTotalRating] = useState(null);
+    const [memo, setMemo] = useState('');
+    // const [placePhoto, setPlacePhoto] = useState(null);
 
     // -----------------------------
     // map size(mapContainerStyle을 이용해 GoogleMap 컨테이너 스타일링:)
@@ -137,9 +142,20 @@ function Map() {
 
                 // 모달창에 정보 출력
                 setModalIsOpen(true); // 모달 on
+                // 대표 사진 URL 생성 및 설정
+                // if (place.photos && place.photos.length > 0) {
+                //     const photoReference = place.photos[0].photo_reference;
+                //     const apiKey = 'AIzaSyBtTC0UAZQ7v34JpqiG63iYRVgCS1UpfUg'; // 실제 API 키로 대체
+                //     const photoUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=${apiKey}`;
+                //     setPlacePhoto(photoUrl);
+                // }
                 setName(place.name); // 장소명
                 setAddress(place.formatted_address); // 장소 주소
-
+                setLatitude(place.geometry.location.lat()); // 위도 좌표
+                setLongitude(place.geometry.location.lng()); // 경도 좌표
+                setPhoneNumber(place.formatted_phone_number); // 전화번호
+                setRating(place.rating); // 평균 별점임.(reviews>rating)은 개인 별점.
+                setTotalRating(place.user_ratings_total); // user_ratings_total
             } else {
                 console.error('Error fetching place details:', status);
             }
@@ -162,25 +178,45 @@ function Map() {
     // map에서 wishList를 저장하는 작업
     // -----------------------------
     const saveWishList = async () => {
-        // try {
-        //     const response = await axios.post("/api/schedule/save", {
-        //         startDate: startDate,
-        //         endDate: endDate,
-        //         title: title,
-        //         memo: memo
-        //     });
-        //     const result = response.data;
-        //     if(result === 1) {
-        //         setModalIsOpen(false);
-        //         fetchScheduleData(); // 새로고침 없이 새로운 데이터로 캘린더 업데이트
-        //     }else{
-        //         alert("failed");
-        //     }
-        //
-        // } catch(error) {
-        //     console.error("오류 발생:", error);
-        // }
+        try {
+            const response = await axios.post("/api/wishList/save", {
+                name: name,
+                address: address,
+                latitude: latitude,
+                longitude: longitude,
+                phoneNumber: phoneNumber,
+                rating: rating,
+                totalRating: totalRating,
+                memo: memo
+            });
+            const result = response.data;
+            if(result === 1) {
+                setModalIsOpen(false);
+                fetchWishListData(); // 새로고침 없이 새로운 데이터로 캘린더 업데이트
+            }else{
+                alert("failed");
+            }
+
+        } catch(error) {
+            console.error("오류 발생:", error);
+        }
     }
+
+
+    // -----------------------------
+    // address 데이터 등록
+    // -----------------------------
+    const handleAddressChange = (event) => {
+        const address = event.target.value;
+        setAddress(address);
+    };
+    // -----------------------------
+    // memo 데이터 등록
+    // -----------------------------
+    const handleMemoChange = (event) => {
+        const memo = event.target.value;
+        setMemo(memo);
+    };
     
     // -----------------------------
     // modal style setting
@@ -188,7 +224,7 @@ function Map() {
     const customStyles = {
         content: {
             display:'flex', color:'#f1575b', background:'#272829', borderRadius: '20px',
-            width: '500px', height: '350px', top: '50%', left: '50%', right: 'auto',
+            width: '500px', height: '500px', top: '50%', left: '50%', right: 'auto',
             bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)', border:'0', fontWeight: 'bolder', fontFamily:'',
         },
         overlay: {
@@ -246,19 +282,14 @@ function Map() {
                 <div className="mapList">
                     <table className="mapList_contents">
                         <tbody>
-                        <tr>
-                            <th rowSpan="2" style={{fontSize: '30px', padding: '15px'}}>1</th>
-                            <td style={{fontSize: '20px', textAlign: "left", fontWeight: "bolder"}}>
-                                백종원의 골목식당
-                                <span className="goDate">[12/22]</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style={{fontSize: '15px', textAlign: "left"}}>
-                                냉동삼겹살이 맛있는 집으로 소문나있음. 꼭가봐야해서 저장
-                                <hr className="splitLine" style={{color: '#c3c3c3', width: '100%'}}/>
-                            </td>
-                        </tr>
+                        {wishListData.map((item, index) => (
+                            <tr>
+                                <td style={{color: '#FF7676',fontSize: '18px', textAlign: "left", fontWeight: "bolder", padding: '15px'}}>
+                                    {index+1}. {item.name} <span className="list_info2">{item.rating}&nbsp;({item.totalRating}) : {item.memo}</span>
+                                    {/*<hr className="splitLine" style={{color: '#c3c3c3', width: '100%'}}/>*/}
+                                </td>
+                            </tr>
+                        ))}
                         </tbody>
                     </table>
                 </div>
@@ -268,16 +299,46 @@ function Map() {
             <Modal isOpen={modalIsOpen} style={customStyles}>
                 <div style={{flex:'1'}}>{/* 부모div에 자식div가 딱 맞게 */}
                     <div className="modal_head">
-                        <h1><span className="date">{name}</span></h1>
+                        {/*
+                        <div>
+                            <img id="place-photo" src={placePhoto} alt="Place photo" />
+                        </div>
+                        */}
+                        <h1>
+                            <span className="date">{name}</span>
+                        </h1>
+                        <h3>
+                            <span id="rating"><span id="rating_star"></span>&nbsp;{rating}</span>
+                            <span id="totalRating">&nbsp;({totalRating})</span>
+                            <span id="callNum">&nbsp;&nbsp;{phoneNumber}</span>
+                        </h3>
+                        <input type="hidden" name="address" value={name} />
                     </div>
                     <div className="modal_body">
                         <div>
-                            <label>Name </label>
-                            <input className="_input" id="name" type="text" value={name}/>
+                            <label>address &nbsp;&nbsp;&nbsp;</label>
+                            <div>
+                                <span className="_input" id="address" onChange={handleAddressChange} >{address}</span>
+                                <input type="hidden" name="address" value={address} />
+                            </div>
                         </div>
+                        <br />
                         <div>
-                            <label>Address </label>
-                            <input className="_input" id="address" type="text" value={address}/>
+                            <label>memo &nbsp;&nbsp;&nbsp;</label>
+                            <div>
+                                <select id="categories" >
+                                    <option>restaurant</option>
+                                    <option>todoPlace</option>
+                                    <option>just</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br />
+                        <div>
+                            <label>memo &nbsp;&nbsp;&nbsp;</label>
+                            <div>
+                                <textarea className="modal_textArea" id="memo" onChange={handleMemoChange} maxLength="33"></textarea>
+                            </div>
                         </div>
                     </div>
                     <div className="modal_foot">

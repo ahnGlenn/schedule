@@ -304,6 +304,7 @@ body {
     height: 100%;
 }
 .mapTittle {
+    flex: 0.07;
     font-size: 30px;
     font-weight: bolder;
     color:#f5f5f5;
@@ -316,7 +317,7 @@ body {
     flex: 1;
     position: relative;
     width: 100%; /* 부모 요소의 너비에 맞춤 */
-    height: 70%; /* 부모 요소의 높이에 맞춤 */
+    height: 100%; /* 부모 요소의 높이에 맞춤 */
 }
 .search-box {
     box-sizing: border-box;
@@ -328,7 +329,7 @@ body {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     font-size: 14px;
     outline: none;
-    text-overflow: ellipses;
+    text-overflow: ellipsis;
     position: absolute;
     left: 50%;
     margin-left: -120px;
@@ -337,9 +338,62 @@ body {
     background: #2D2E2F;
     color: #f5f5f5;
 }
+
+
+.modal_head > h1{  /* map save modal css */
+    text-align: center;
+    font-weight: bolder;
+}
+.modal_head > h3{  /* map save modal css */
+    text-align: center;
+}
+h3 > #rating, h3 > #totalRating {  /* map save modal css */
+    color: #C3C3C3;
+}
+h3 > #callNum{  /* map save modal css */
+    font-size: 15px;
+    color: coral;
+}
+#rating_star{
+    background-image: url("../../../public/images/round_star.png");
+    width: 15px;  /* 적절한 너비 설정 */
+    height: 15px; /* 적절한 높이 설정 */
+    background-size: contain; /* 이미지를 요소 크기에 맞춤 */
+    display: inline-block; /* 요소를 인라인 블록으로 설정 */
+}
+.modal_body > div > label{/* map save modal css */
+    font-size: 20px;
+    font-weight: bolder;
+}
+.modal_body #address{
+    color: #C3C3C3;
+}
+#categories{
+    font-size: 20px;
+    font-weight: bolder;
+    background-color: #2D2E2F;
+    color: #C3C3C3;
+    border:none;
+    width: 100%;
+    padding: 10px;
+}
+.modal_textArea{
+    outline: none;/* 포커싱시 파란 테두리 제거 */
+    height:50px;
+    width: 96%;
+    /*color:lightsalmon;*/
+    font-size: 20px;
+    font-weight: bolder;
+    background-color: #2D2E2F;
+    color: #C3C3C3;
+    border:none;
+    padding: 10px;
+    resize: none;
+}
+
 .mapList{
-    display: flex;
     margin-top: 3%;
+    flex: 0.5;
 }
 .mapList_contents {
     border-collapse: collapse; /* 테이블 셀 경계를 병합하여 테이블의 경계선을 만듭니다. */
@@ -354,4 +408,8 @@ body {
 /* mapList 테이블 > 엄청 얇은 구분선 스타일 */
 .mapList_contents .splitLine {
     transform: scaleY(0.10);
+}
+.list_info2{ /* wish-list 별점 및 리뷰수 */
+    color: #C3C3C3;
+    font-size: 16px;
 }
