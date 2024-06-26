@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "./LoginPage.css";
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
 

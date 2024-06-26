@@ -10,13 +10,7 @@ function Header(){
     return(
         <div className="main_header">
             <div>Ours Desktop</div>
-            <div class="logout">
-                <nav class="nav-menu">
-                    <ul>
-                        <li>&lt;</li>
-                        <li>&gt;</li>
-                    </ul>
-                </nav>
+            <div className="logout">
                 <span onClick={handleLogout}>Logout</span>
             </div>
         </div>

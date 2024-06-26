@@ -1,20 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
 
 function Currency() {
-    // -----------------------------
-    // 환율 포맷(3자리)
-    // -----------------------------
-    const fmtCurrency = (e)=>{
-        const number = e;
-        return number.toLocaleString();
-    }
-    
+
     // -----------------------------
     // 변수 지정
     // -----------------------------
-    const [data, setData] = useState([]);
     const [KOR, setKor] = useState([]);
     const [EUR, setEur] = useState([]);
     const [calEUR, setCalEur] = useState(1);
@@ -30,7 +20,7 @@ function Currency() {
             const result = await response.json();
 
             result.forEach(item =>{
-                if(item.curUnit == "KRW"){
+                if(item.curUnit === "KRW"){
                     setEur(parseInt(item.dealBasR.replace(/,/g, '')));
                     setCalEur(parseInt(item.dealBasR.replace(/,/g, '')));
                 }else{

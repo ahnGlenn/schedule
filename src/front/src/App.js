@@ -1,5 +1,5 @@
-import logo from './logo.svg';
-import { Provider } from 'react-redux'
+// import logo from './logo.svg';
+// import { Provider } from 'react-redux'
 // import store from './redux/store'
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';

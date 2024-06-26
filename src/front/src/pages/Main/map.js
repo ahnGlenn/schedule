@@ -17,19 +17,11 @@ function Map({wishListData, fetchWishListData}) {
     const [latitude, setLatitude] = useState(null);
     const [longitude, setLongitude] = useState(null);
     const [phoneNumber, setPhoneNumber] = useState(null);
-    const [website, setWebsite] = useState(null);
+    // const [website, setWebsite] = useState(null);
     const [rating, setRating] = useState(null);
     const [totalRating, setTotalRating] = useState(null);
     const [memo, setMemo] = useState('');
     // const [placePhoto, setPlacePhoto] = useState(null);
-
-    // -----------------------------
-    // map size(mapContainerStyle을 이용해 GoogleMap 컨테이너 스타일링:)
-    // -----------------------------
-    const mapContainerStyle = {
-        height: "370px",
-        width: "150%",
-    };
 
 
     // -----------------------------
@@ -166,12 +158,12 @@ function Map({wishListData, fetchWishListData}) {
     // -----------------------------
     // 예시 데이터: 각 장소의 위치(위도, 경도)를 배열로 저장
     // -----------------------------
-    const locations = [
-        { id: 1, lat: 37.5665, lng: 126.9780, name: 'Seoul' },
-        { id: 2, lat: 40.7128, lng: -74.0060, name: 'New York' },
-        { id: 3, lat: 51.5074, lng: -0.1278, name: 'London' },
-        // 원하는 만큼 추가할 수 있습니다......
-    ];
+    // const locations = [
+    //     { id: 1, lat: 37.5665, lng: 126.9780, name: 'Seoul' },
+    //     { id: 2, lat: 40.7128, lng: -74.0060, name: 'New York' },
+    //     { id: 3, lat: 51.5074, lng: -0.1278, name: 'London' },
+    //     // 원하는 만큼 추가할 수 있습니다......
+    // ];
 
 
     // -----------------------------

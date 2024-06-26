@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 
 import Modal from 'react-modal';
 import FullCalendar from '@fullcalendar/react';
@@ -13,7 +13,7 @@ function Calendar({ scheduleData, fetchScheduleData }) {
     // -----------------------------
     // manage state
     // -----------------------------
-    const [value, onChange] = useState(new Date());
+    // const [value, onChange] = useState(new Date());
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');

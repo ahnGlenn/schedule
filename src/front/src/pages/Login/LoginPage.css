@@ -1,7 +1,11 @@
 body {
-    background:#272829;
+    /*background:#272829;*/
+    background-color: #141A1F;
+    height: 100%;
     /*font-family:"Raleway";*/
    /* font-family: "Roboto,RobotoDraft,Helvetica,Arial,sans-serif";*/
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 .form {
     position:absolute;
@@ -105,6 +109,7 @@ body {
 .main_container{
     display: flex;
     flex-direction: column;
+    height: 100vh;
     /*flex-flow: row wrap;
     /* 아래의 두 줄을 줄여 쓴 것 */
     /* flex-direction: row; */
@@ -112,17 +117,12 @@ body {
 
 
 
-/* ----------------------------------- mainPage Header.jsx  CSS ----------------------------------- */
-.contentCp {
-    display: flex; /* 나머지 컴포넌트를 가로로 배치 */
-    justify-content: space-between; /* 필요에 따라 정렬 조정 */
-    padding: 2%;
-}
+/* ----------------------------------- mainPage Header.jsx , LeftMenu.jsx CSS ----------------------------------- */
 .main_container > div > .main_header{
     display: flex;
     width: 100%;
     height: 25px;
-    background-color: #0049A1;
+    background-color: #0339A6;
     /*background-color: rgba(0, 73, 161, 0.6);*/
     color: #E8EFFB;
     font-size: 20px;
@@ -130,21 +130,6 @@ body {
     align-items: center;
     padding: 10px 20px;
     justify-content: space-between; /* 요소들을 양 끝으로 정렬 */
-}
-.nav-menu ul {
-    list-style-type: none;
-    display: flex;
-}
-.nav-menu ul li {
-    margin-right: 10px;
-}
-.nav-menu ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 16px;
-}
-.nav-menu ul li a:hover {
-    color: #2c2c2c;
 }
 .logout{
     display: flex;
@@ -158,12 +143,55 @@ body {
 .logout span:hover {
     color: #2c2c2c;
 }
+.body_container {
+    display: flex;
+    flex: 1;
+    height: 100%;
+}
+.leftMenuCp {
+    flex: 0 0 400px; /* Adjust the width as needed */
+}
+.main_leftMenu{
+    background-color: #080B0E;
+    height: 100%;
+}
+.nav-menu ul {
+    margin-top: 0px;
+    padding-top: 25px;
+
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.nav-menu ul li {
+    color: #7F8C96;
+    text-decoration: none;
+    font-size: 20px;
+
+    margin-bottom: 30px;
+}
+.nav-menu ul li:hover {
+    color: #fff;
+}
+.contentCp {
+    flex: 1;
+    display: flex; /* 나머지 컴포넌트를 가로로 배치 */
+    justify-content: space-between; /* 필요에 따라 정렬 조정 */
+    padding: 2%;
+}
+
+
+
+
+
 
 /* ----------------------------------- Full Calendar Component CSS ----------------------------------- */
 
 .calendarCp{
     box-shadow: 5px 5px 5px 5px #222222;
-    background-color: #2c2c2c;
+    /*background-color: #2c2c2c;*/
+    background-color: #1C262C;
     border-radius: 30px;
     margin-right: 1%;
     padding: 25px;
@@ -240,7 +268,8 @@ body {
 }
 .exRateCp{
     width: 28%;
-    background-color: #2c2c2c;
+    /*background-color: #2c2c2c;*/
+    background-color: #1C262C;
     box-shadow: 5px 5px 5px 5px #222222;
     height: 160px;
     border-radius: 30px;
@@ -338,7 +367,8 @@ body {
     flex-direction: column;
     align-items: center; !* 수직 가운데 정렬 *!
     justify-content: center; !* 수평 가운데 정렬 *!*/
-    background-color: #2c2c2c;
+    /*background-color: #2c2c2c;*/
+    background-color: #1C262C;
     box-shadow: 5px 5px 5px 5px #222222;
     width: 50%;
     height: 870px;

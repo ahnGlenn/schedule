@@ -3,6 +3,7 @@ import Calendar from './calendar';
 import React, {useEffect, useState} from "react";
 import Currency from "../../components/Currency/Currency";
 import Map from "../Main/map";
+import LeftMenu from "./left";
 
 /********************************
  MainPage after success login
@@ -68,17 +69,22 @@ function MainPage() {
             <div className="headerCp">
                 <Header/>
             </div>
-            <div className="contentCp">
-                <div className="calendarCp">
-                    <div className="inner_calendarCp">
-                        <Calendar scheduleData={scheduleData} fetchScheduleData={fetchScheduleData}/>
+            <div className="body_container">
+                <div className="leftMenuCp">
+                    <LeftMenu/>
+                </div>
+                <div className="contentCp">
+                    <div className="calendarCp">
+                        <div className="inner_calendarCp">
+                            <Calendar scheduleData={scheduleData} fetchScheduleData={fetchScheduleData}/>
+                        </div>
                     </div>
-                </div>
-                <div className="mapCp">
-                    <Map wishListData={wishListData} fetchWishListData={fetchWishListData}/>
-                </div>
-                <div className="exRateCp">
-                    <Currency/>
+                    <div className="mapCp">
+                        <Map wishListData={wishListData} fetchWishListData={fetchWishListData}/>
+                    </div>
+                    <div className="exRateCp">
+                        <Currency/>
+                    </div>
                 </div>
             </div>
         </div>
