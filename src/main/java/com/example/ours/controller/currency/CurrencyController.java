@@ -7,6 +7,7 @@ import com.google.gson.JsonParser;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,10 +30,10 @@ import java.time.format.DateTimeFormatter;
 public class CurrencyController {
     private static final Logger log = LoggerFactory.getLogger(CurrencyController.class);
 
-    // 환율 api : https://www.koreaexim.go.kr/ir/HPHKIR020M01?apino=2&viewtype=C&searchselect=&searchword=
-    // request URL : https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey=AUTHKEY1234567890&searchdate=20180102&data=AP01
-    // personal key : QhvG55YHoU8Z0QJeivZoP5K1BMaDkFXU
-    // 비영업일의 데이터, 혹은 영업당일 11시 이전에 해당일의 데이터를 요청할 경우 null 값이 반환
+
+    // 환율 api key
+    @Value("${currency.api.Key}")
+    private String currencyApiKey;
 
     @GetMapping("/currency")
     public String getCurrencyRate (){
@@ -40,17 +41,14 @@ public class CurrencyController {
         log.info(">>>>>>>>>> Start CurrencyRate >>>>>>>>>>");
 
         LocalDate currentDate = LocalDate.now();
-
-        String authKey = "QhvG55YHoU8Z0QJeivZoP5K1BMaDkFXU";
         String searchdate =  currentDate.minusDays(1).format(DateTimeFormatter.ofPattern("yyyyMMdd"));
         String data = "AP01"; // AP01 : 환율, AP02 : 대출금리, AP03 : 국제금리
 
         // String reqUrl = "https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey="+authKey+"&searchdate="+searchdate+"&data="+data;
-        String reqUrl = "https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey="+authKey+"&searchdate=20240605&data="+data;
+        String reqUrl = "https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey="+currencyApiKey+"&searchdate=20240605&data="+data;
 
         // 분류될 데이터를 담을 저장소
         JsonArray jsonList = new JsonArray();
-
         try{
             // Request URL
             URL url = new URL(reqUrl);

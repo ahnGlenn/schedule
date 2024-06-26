@@ -145,7 +145,7 @@ function Map({wishListData, fetchWishListData}) {
                 // 대표 사진 URL 생성 및 설정
                 // if (place.photos && place.photos.length > 0) {
                 //     const photoReference = place.photos[0].photo_reference;
-                //     const apiKey = 'AIzaSyBtTC0UAZQ7v34JpqiG63iYRVgCS1UpfUg'; // 실제 API 키로 대체
+                //     const apiKey = 'xxx'; // 실제 API 키로 대체
                 //     const photoUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=${apiKey}`;
                 //     setPlacePhoto(photoUrl);
                 // }
@@ -232,8 +232,13 @@ function Map({wishListData, fetchWishListData}) {
             backgroundColor: 'rgba(0, 0, 0, 0.75)'}
     };
 
+    // -----------------------------
+    // .env에서 GOOGLE_MAP_API_KEY 호출
+    // -----------------------------
+    const googleMapApiKey = process.env.REACT_APP_GOOGLE_MAP_API_KEY;
+
     return (
-        <LoadScript googleMapsApiKey="AIzaSyBtTC0UAZQ7v34JpqiG63iYRVgCS1UpfUg" libraries={["places"]}>
+        <LoadScript googleMapsApiKey={googleMapApiKey} libraries={["places"]}>
             <div className="mapCp2">
                 <div className="mapTittle">
                     <span>Wish List</span>
@@ -283,10 +288,17 @@ function Map({wishListData, fetchWishListData}) {
                     <table className="mapList_contents">
                         <tbody>
                         {wishListData.map((item, index) => (
-                            <tr>
-                                <td style={{color: '#FF7676',fontSize: '18px', textAlign: "left", fontWeight: "bolder", padding: '15px'}}>
-                                    {index+1}. {item.name} <span className="list_info2">{item.rating}&nbsp;({item.totalRating}) : {item.memo}</span>
-                                    {/*<hr className="splitLine" style={{color: '#c3c3c3', width: '100%'}}/>*/}
+                            <tr key={index}>
+                                <td style={{
+                                    color: '#FF7676',
+                                    fontSize: '18px',
+                                    textAlign: "left",
+                                    fontWeight: "bolder",
+                                    padding: '15px'
+                                }}>
+                                    {index + 1}. {item.name} <span
+                                    className="list_info2">{item.rating}&nbsp;({item.totalRating}) : {item.memo}</span>
+                                    <hr className="splitLine" style={{color: '#c3c3c3', width: '100%'}}/>
                                 </td>
                             </tr>
                         ))}
@@ -297,7 +309,7 @@ function Map({wishListData, fetchWishListData}) {
 
 
             <Modal isOpen={modalIsOpen} style={customStyles}>
-                <div style={{flex:'1'}}>{/* 부모div에 자식div가 딱 맞게 */}
+                <div style={{flex: '1'}}>{/* 부모div에 자식div가 딱 맞게 */}
                     <div className="modal_head">
                         {/*
                         <div>
