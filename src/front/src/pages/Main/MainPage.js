@@ -1,3 +1,4 @@
+import Header from './header';
 import Calendar from './calendar';
 import React, {useEffect, useState} from "react";
 import Currency from "../../components/Currency/Currency";
@@ -64,16 +65,21 @@ function MainPage() {
 
     return (
         <div className="main_container">
-            <div className="calendarCp">
-                <div className="inner_calendarCp">
-                    <Calendar scheduleData={scheduleData} fetchScheduleData={fetchScheduleData} />
+            <div className="headerCp">
+                <Header/>
+            </div>
+            <div className="contentCp">
+                <div className="calendarCp">
+                    <div className="inner_calendarCp">
+                        <Calendar scheduleData={scheduleData} fetchScheduleData={fetchScheduleData}/>
+                    </div>
                 </div>
-            </div>
-            <div className="mapCp">
-                <Map wishListData={wishListData} fetchWishListData={fetchWishListData} />
-            </div>
-            <div className="exRateCp">
-                <Currency/>
+                <div className="mapCp">
+                    <Map wishListData={wishListData} fetchWishListData={fetchWishListData}/>
+                </div>
+                <div className="exRateCp">
+                    <Currency/>
+                </div>
             </div>
         </div>
     );
