@@ -171,9 +171,7 @@ body {
 
     margin-bottom: 30px;
 }
-.nav-menu ul li:hover {
-    color: #fff;
-}
+
 .contentCp {
     flex: 1;
     display: flex; /* 나머지 컴포넌트를 가로로 배치 */

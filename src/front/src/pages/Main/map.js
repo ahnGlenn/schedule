@@ -1,7 +1,12 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useRef, useState, useEffect } from "react";
 import { GoogleMap, LoadScript, StandaloneSearchBox, Marker } from '@react-google-maps/api';
 import Modal from "react-modal";
 import axios from "axios";
+
+// -----------------------------
+// .env에서 GOOGLE_MAP_API_KEY 호출
+// -----------------------------
+const googleMapApiKey = process.env.REACT_APP_GOOGLE_MAP_API_KEY;
 
 function Map({wishListData, fetchWishListData}) {
     const mapRef = useRef(null);
@@ -223,11 +228,6 @@ function Map({wishListData, fetchWishListData}) {
             zIndex: 1000,
             backgroundColor: 'rgba(0, 0, 0, 0.75)'}
     };
-
-    // -----------------------------
-    // .env에서 GOOGLE_MAP_API_KEY 호출
-    // -----------------------------
-    const googleMapApiKey = process.env.REACT_APP_GOOGLE_MAP_API_KEY;
 
     return (
         <LoadScript googleMapsApiKey={googleMapApiKey} libraries={["places"]}>

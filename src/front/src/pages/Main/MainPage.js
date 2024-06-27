@@ -4,7 +4,7 @@ import React, {useEffect, useState} from "react";
 import Currency from "../../components/Currency/Currency";
 import Map from "../Main/map";
 import LeftMenu from "./left";
-
+import { Routes, Route } from 'react-router-dom';
 /********************************
  MainPage after success login
  ********************************/
@@ -74,21 +74,16 @@ function MainPage() {
                     <LeftMenu/>
                 </div>
                 <div className="contentCp">
-                    <div className="calendarCp">
-                        <div className="inner_calendarCp">
-                            <Calendar scheduleData={scheduleData} fetchScheduleData={fetchScheduleData}/>
-                        </div>
-                    </div>
-                    <div className="mapCp">
-                        <Map wishListData={wishListData} fetchWishListData={fetchWishListData}/>
-                    </div>
-                    <div className="exRateCp">
-                        <Currency/>
-                    </div>
+                    <Routes>
+                        <Route path="calendar" element={<Calendar scheduleData={scheduleData} fetchScheduleData={fetchScheduleData} />} />
+                        <Route path="map" element={<Map wishListData={wishListData} fetchWishListData={fetchWishListData} />} />
+                        <Route path="currency" element={<Currency />} />
+                        {/* Add other routes here as needed */}
+                    </Routes>
                 </div>
             </div>
         </div>
     );
 }
 
-export default MainPage
+export default MainPage;

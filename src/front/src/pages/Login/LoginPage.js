@@ -28,7 +28,7 @@ function LoginPage() {
 
             // 서버에서 "LOGIN_SUCCESS"를 받았을 때 페이지 이동
             if (loginApi.data === 'LOGIN_SUCCESS') {
-                navigate('/MainPage');
+                navigate('/main/calendar');
             } else {
                 alert("Not exist login Information.");
             }
