@@ -22,6 +22,7 @@ function MainPage() {
             // rawData에 데이터를 변환하여 넣기
             const rawData = result.map(item => ({
                 title: item.title,
+                memo: item.memo,
                 start: item.startDate,
                 end: item.endDate,
                 editable: true,  droppable: true, color: '#FF7676'

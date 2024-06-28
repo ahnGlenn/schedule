@@ -1,5 +1,4 @@
 import { Link, useNavigate } from 'react-router-dom';
-import Calendar from "./calendar";
 
 function LeftMenu() {
     const handleLogout = () => {

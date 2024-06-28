@@ -30,9 +30,10 @@ function Calendar({ scheduleData, fetchScheduleData }) {
         setModalIsOpen(true);
     };
 
-    // -----------------------------
-    // modal style setting
-    // -----------------------------
+
+    /**********************************
+     modal style setting
+     **********************************/
     const customStyles = {
         content: {
             display:'flex', color:'#f1575b', background:'#272829', borderRadius: '20px',
@@ -93,6 +94,13 @@ function Calendar({ scheduleData, fetchScheduleData }) {
         setMemo(memo);
     };
 
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const month = ('0' + (date.getMonth() + 1)).slice(-2); // 월을 두 자리로 만들기
+        const day = ('0' + date.getDate()).slice(-2); // 일을 두 자리로 만들기
+        return `${month}-${day}`;
+    }
+
 
     return (
         <div className="calendar">
@@ -101,18 +109,43 @@ function Calendar({ scheduleData, fetchScheduleData }) {
                 <h1>Schedule</h1>
             </div>
             */}
-            <FullCalendar
-                // 날짜 클릭 시 이벤트 발생
-                dateClick={dateClick}
-                defaultView="dayGridMonth"
-                plugins={[dayGridPlugin, interactionPlugin]}
-                events={scheduleData}
-                headerToolbar={{
-                    left: 'prev',
-                    center: 'title',
-                    right: 'next'
-                }}
-            />
+            <div className="calendar_zone">
+                <FullCalendar
+                    // 날짜 클릭 시 이벤트 발생
+                    dateClick={dateClick}
+                    defaultView="dayGridMonth"
+                    plugins={[dayGridPlugin, interactionPlugin]}
+                    events={scheduleData}
+                    headerToolbar={{
+                        left: 'prev',
+                        center: 'title',
+                        right: 'next'
+                    }}
+                />
+            </div>
+            <div className="todoList">
+                <table className="todoList_table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Plan</th>
+                        <th scope="col">Memo</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {scheduleData.map((item, index) => (
+                        <tr>
+                            <td className="noBorder">{item.title}</td>
+                            <td className="noBorder">{item.memo}</td>
+                            <td className="noBorder">{formatDate(item.start)} ~ {formatDate(item.end)}</td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
+
+
+
             <Modal isOpen={modalIsOpen} style={customStyles}>
                 <div style={{flex:'1'}}>{/* 부모div에 자식div가 딱 맞게 */}
                     <div className="modal_head">
