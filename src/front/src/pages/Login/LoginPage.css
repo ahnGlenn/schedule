@@ -222,6 +222,15 @@ body {
     height: 100vh;
 }
 
+/* 달력 전체 틀 */
+.fc{
+    border-radius:10px;
+    background-color: #1C262D;
+}
+.fc .fc-toolbar.fc-header-toolbar{
+    margin-bottom: 0px;
+}
+
 /* month year */
 .fc-toolbar-title{
     color: #f5f5f5;
