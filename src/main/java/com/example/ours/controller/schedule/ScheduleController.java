@@ -1,11 +1,7 @@
 package com.example.ours.controller.schedule;
 
 import com.example.ours.dto.schedule.ScheduleDto;
-
 import com.example.ours.service.ScheduleService;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -26,28 +22,41 @@ public class ScheduleController {
     @Autowired
     private ScheduleService scheduleService;
 
-    /*
-    *  메인페이지 시작시 모든 스케줄 리스트를 가져옴(캘린더 표출 용)
-    */
-    @GetMapping(value = "/list")
+
+    /**********************************
+     루틴 스프링 배치, 알람 >> 목표 / 일정
+     **********************************/
+
+
+
+    /**********************************
+     스케줄 페이지 시작, 일정 클릭 시 리스트 호출
+     **********************************/
+    @GetMapping(value = {"/list", "/detail"})
     public List<ScheduleDto> searchList(){
 
         log.info(">>>>>>>>>> Search Schedule list >>>>>>>>>>");
-        try {
 
-            // search all schedule list
+        try {
             List<ScheduleDto> schduleList = scheduleService.searchSchedule();
+
             return schduleList;
 
         }catch (Exception e){
-            e.printStackTrace(); // 예외 출력
+            e.printStackTrace();
             return Collections.emptyList(); // 빈 리스트 반환
         }
     };
 
+
+
+    /**********************************
+     캘린더 일정 등록 및 수정
+     **********************************/
     @PostMapping(value = {"/save", "/update"})
     public String saveSchedule(HttpServletRequest request,
-                               @RequestBody ScheduleDto scheduleDto /* axios > post를 받기위해서(@RequestBody) */
+                               @RequestBody ScheduleDto scheduleDto
+                                /* axios > post를 받기위해서(@RequestBody) */
     ){
 
         // Start Saving Schedule
@@ -57,14 +66,43 @@ public class ScheduleController {
             // Start Logging
             String requestURI = request.getRequestURI();
             if (requestURI.endsWith("/save")) {
+
                 log.info(">>>>>>>>>> Save Schedule >>>>>>>>>>");
+
                 scheduleDto.setUserId("dkstkdwo93@naver.com");
                 scheduleService.saveSchedule(scheduleDto);
 
             } else if (requestURI.endsWith("/update")) {
+
                 log.info(">>>>>>>>>> Update Schedule >>>>>>>>>>");
+
+
             }
 
+            result = "1";
+
+        }catch (Exception e){
+            e.getStackTrace();
+            result = "0";
+        }
+
+        return result;
+    }
+
+
+
+    /**********************************
+     캘린더 일정 삭제
+     **********************************/
+    @PostMapping("/delete")
+    public String getCurrencyRate(@RequestBody ScheduleDto scheduleDto){
+
+        log.info(">>>>>>>>>> Delete Schedule >>>>>>>>>>");
+
+        String result;
+
+        try {
+            scheduleService.deleteSchedule(scheduleDto);
             result = "1";
         }catch (Exception e){
             e.getStackTrace();
@@ -74,14 +112,6 @@ public class ScheduleController {
         return result;
     }
 
-    @GetMapping("/delete")
-    public String getCurrencyRate(){
 
-        log.info(">>>>>>>>>> Delete Schedule >>>>>>>>>>");
-
-
-
-        return null;
-    }
 }
 

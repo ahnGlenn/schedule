@@ -68,6 +68,27 @@ function Calendar({ scheduleData, fetchScheduleData }) {
             console.error("오류 발생:", error);
         }
     }
+    // -----------------------------
+    // 스케줄 데이터 삭제
+    // -----------------------------
+    const deleteSchedule = async (item) =>{
+        try{
+            alert("item check:" + item.title + " / " + item.userId);
+            const response = await axios.post("/api/schedule/delete", {
+                id: item.id,
+                userId: item.userId,
+            });
+
+            const result = response.data;
+            if(result === 1) {
+                fetchScheduleData(); // 새로고침 없이 새로운 데이터로 캘린더 업데이트
+            }else{
+                alert("failed");
+            }
+        }catch (e) {
+            console.error("삭제 중 오류 발생:", e);
+        }
+    }
 
 
     // -----------------------------
@@ -127,17 +148,21 @@ function Calendar({ scheduleData, fetchScheduleData }) {
                 <table className="todoList_table">
                     <thead>
                     <tr>
+                        <th scope="col">No.</th>
                         <th scope="col">Plan</th>
                         <th scope="col">Memo</th>
                         <th scope="col">Date</th>
+                        <th scope="col">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                     </tr>
                     </thead>
                     <tbody>
                     {scheduleData.map((item, index) => (
                         <tr>
+                            <td className="noBorder">{index + 1}</td>
                             <td className="noBorder">{item.title}</td>
                             <td className="noBorder">{item.memo}</td>
                             <td className="noBorder">{formatDate(item.start)} ~ {formatDate(item.end)}</td>
+                            <td className="noBorder" onClick={() => deleteSchedule(item)}><span id="trash_bin"></span></td>
                         </tr>
                     ))}
                     </tbody>

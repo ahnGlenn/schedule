@@ -57,4 +57,8 @@ public class ScheduleDto {
         updatedAt = new Date();
     }
 
+    // 삭제 여부를 나타내는 플래그
+    private String delYn;
+
+
 }

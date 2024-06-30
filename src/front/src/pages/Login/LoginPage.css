@@ -166,7 +166,7 @@ body {
 }
 .nav-menu ul li{
     font-size: 20px;
-    margin-bottom: 40px;
+    margin-bottom: 35px;
 }
 .nav-menu ul li a{
     color: #7F8C96;
@@ -274,28 +274,57 @@ body {
 }
 
 
-/* calendar todolist table css */
+
+/* 캘린더 할일 리스트 관련 calendar todolist table css */
+.todoList{
+    margin-left: 2%;
+}
 .todoList_table{
-    padding: 10%;
+    border-collapse: collapse; /* 테이블 경계선이 겹치지 않도록 설정 */
     color: #C3C3C3;
     background-color: #141A1F;
     text-align: left;
 }
+.calendar .todoList .todoList_table tbody > tr {
+    height: 100px;
+}
 .calendar .todoList .todoList_table th {
+    border-bottom: 1px solid #C3C3C3; /* th의 밑에 라인을 넣음 */
     background-color: #141A1F;
     color: white;
+    font-size: 20px;
     font-weight: bolder;
-    padding-left: 20px;
     padding-right: 100px;
+    padding-bottom: 15px;
+}
+.calendar .todoList .todoList_table td {
+    padding-top: 40px;
+}
+.calendar .todoList .todoList_table th:nth-child(1),
+.calendar .todoList .todoList_table th:nth-child(5){
+    padding-right: 25px;
 }
 .calendar .todoList .todoList_table th:nth-child(2) {
-    padding-right: 250px;
+    padding-right: 120px;
 }
 .calendar .todoList .todoList_table .noBorder {
     border:none !important;
 }
-
-
+.calendar .todoList .todoList_table .noBorder:nth-child(5) {
+    text-align: center;
+}e
+#trash_bin{
+    background-image: url("../../../public/images/trashbin_grey.png");
+    width: 15px;  /* 적절한 너비 설정 */
+    height: 20px; /* 적절한 높이 설정 */
+    display: inline-block;
+    background-size: cover; /* 이미지를 요소 크기에 맞춤 */
+}
+#trash_bin:hover{
+    background-image: url("../../../public/images/trashbin_red.png");
+    width: 50px;  /* 적절한 너비 설정 */
+    height: 50px; /* 적절한 높이 설정 */
+}
 
 
 

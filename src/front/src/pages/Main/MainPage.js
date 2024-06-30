@@ -5,14 +5,18 @@ import Currency from "../../components/Currency/Currency";
 import Map from "../Main/map";
 import LeftMenu from "./left";
 import { Routes, Route } from 'react-router-dom';
+
+
 /********************************
- MainPage after success login
+ *
+ * MainPage after success login
+ *
  ********************************/
 function MainPage() {
 
-    // -----------------------------
-    // 풀캘린더 데이터에 일정 추가하기
-    // -----------------------------
+    /**********************************
+     풀캘린더 데이터에 일정 추가하기
+     **********************************/
     const [scheduleData, setScheduleData] = useState([]);
     const fetchScheduleData = async () => {
         try {
@@ -21,6 +25,8 @@ function MainPage() {
 
             // rawData에 데이터를 변환하여 넣기
             const rawData = result.map(item => ({
+                id: item.id,
+                userId: item.userId,
                 title: item.title,
                 memo: item.memo,
                 start: item.startDate,
@@ -36,9 +42,9 @@ function MainPage() {
 
 
 
-    // -----------------------------
-    // wishlist 불러오기
-    // -----------------------------
+    /**********************************
+     wishlist 불러오기
+     **********************************/
     const [wishListData, setWishListData] = useState([]);
     const fetchWishListData = async () => {
         try {
