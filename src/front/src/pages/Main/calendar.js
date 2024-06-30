@@ -25,7 +25,7 @@ function Calendar({ scheduleData, fetchScheduleData }) {
     // -----------------------------
     const dateClick = (info) => {
         // alert(info.dateStr);
-        setStartDate(info.dateStr);
+        // setStartDate(info.dateStr);
         setStartDate(info.dateStr);
         setModalIsOpen(true);
     };
@@ -68,22 +68,27 @@ function Calendar({ scheduleData, fetchScheduleData }) {
             console.error("오류 발생:", error);
         }
     }
+
+
+
     // -----------------------------
     // 스케줄 데이터 삭제
     // -----------------------------
     const deleteSchedule = async (item) =>{
         try{
-            alert("item check:" + item.title + " / " + item.userId);
-            const response = await axios.post("/api/schedule/delete", {
-                id: item.id,
-                userId: item.userId,
-            });
+            if(window.confirm("are you going to delete?")){
+                const response = await axios.post("/api/schedule/delete", {
+                    id: item.id,
+                    userId: item.userId,
+                });
 
-            const result = response.data;
-            if(result === 1) {
-                fetchScheduleData(); // 새로고침 없이 새로운 데이터로 캘린더 업데이트
-            }else{
-                alert("failed");
+                const result = response.data;
+
+                if(result === 1) {
+                    fetchScheduleData(); // 새로고침 없이 새로운 데이터로 캘린더 업데이트
+                }else{
+                    alert("failed");
+                }
             }
         }catch (e) {
             console.error("삭제 중 오류 발생:", e);
@@ -125,49 +130,89 @@ function Calendar({ scheduleData, fetchScheduleData }) {
 
     return (
         <div className="calendar">
-            {/*
-            <div className="calendarTittle">
-                <h1>Schedule</h1>
+            <div className="calendarCp1">
+                <h1>Schedule</h1>&nbsp;&nbsp;<h3>about schedule? 말풍선 달어</h3>
             </div>
-            */}
-            <div className="calendar_zone">
-                <FullCalendar
-                    // 날짜 클릭 시 이벤트 발생
-                    dateClick={dateClick}
-                    defaultView="dayGridMonth"
-                    plugins={[dayGridPlugin, interactionPlugin]}
-                    events={scheduleData}
-                    displayEventTime={false} // 12a 앞에 안나오게.
-                    headerToolbar={{
-                        left: 'prev',
-                        center: 'title',
-                        right: 'next'
-                    }}
-                />
-            </div>
-            <div className="todoList">
-                <table className="todoList_table">
-                    <thead>
-                    <tr>
-                        <th scope="col">No.</th>
-                        <th scope="col">Plan</th>
-                        <th scope="col">Memo</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {scheduleData.map((item, index) => (
+            <div className="calendarCp2">
+                <div className="calendar_zone">
+                    <FullCalendar
+                        // 날짜 클릭 시 이벤트 발생
+                        dateClick={dateClick}
+                        defaultView="dayGridMonth"
+                        plugins={[dayGridPlugin, interactionPlugin]}
+                        events={scheduleData}
+                        displayEventTime={false} // 12a 앞에 안나오게.
+                        headerToolbar={{
+                            left: 'prev',
+                            center: 'title',
+                            right: 'next'
+                        }}
+                    />
+                </div>
+                <div className="todoList">
+                    <table className="todoList_table">
+                        <thead>
                         <tr>
-                            <td className="noBorder">{index + 1}</td>
-                            <td className="noBorder">{item.title}</td>
-                            <td className="noBorder">{item.memo}</td>
-                            <td className="noBorder">{formatDate(item.start)} ~ {formatDate(item.end)}</td>
-                            <td style={{textAlign:"center"}} className="noBorder" onClick={() => deleteSchedule(item)}><span id="trash_bin"></span></td>
+                            <th scope="col">No.</th>
+                            <th scope="col">Plan</th>
+                            <th scope="col">Memo</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                         </tr>
-                    ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        {scheduleData.map((item, index) => (
+                            <tr>
+                                <td className="noBorder">{index + 1}</td>
+                                <td className="noBorder">{item.title}</td>
+                                <td className="noBorder">{item.memo}</td>
+                                <td className="noBorder">{formatDate(item.start)} ~ {formatDate(item.end)}</td>
+                                <td style={{textAlign:"center"}} className="noBorder" onClick={() => deleteSchedule(item)}><span id="trash_bin"></span></td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div className="calendarCp3">
+                <div className="routine_title" style={{display: "flex"}}>
+                    <h2>routine</h2><span>add</span>
+                </div>
+                <div className="routine_list">
+                    <table className="routine_table">
+                        <thead>
+                        <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">Routine</th>
+                            <th scope="col">Memo</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Repeat day</th>
+                            <th scope="col">Cron tab</th>
+                            <th scope="col">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td className="noBorder">1</td>
+                                <td className="noBorder">반복 업무 1</td>
+                                <td className="noBorder">반복해야되요.</td>
+                                <td className="noBorder">반복 시작일 ~ 반복 종료일</td>
+                                <td slassName="noBorder">반복 일정</td>
+                                <td slassName="noBorder">반복 일정</td>
+                                <td slassName="noBorder"><span id="trash_bin"></span></td>
+                            </tr>
+                            <tr>
+                                <td className="noBorder">2</td>
+                                <td className="noBorder">반복 업무 2</td>
+                                <td className="noBorder">반복해야되요.</td>
+                                <td className="noBorder">반복 시작일 ~ 반복 종료일</td>
+                                <td slassName="noBorder">반복 일정</td>
+                                <td slassName="noBorder">반복 일정</td>
+                                <td slassName="noBorder"><span id="trash_bin"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
 
@@ -206,6 +251,7 @@ function Calendar({ scheduleData, fetchScheduleData }) {
                 </div>
             </Modal>
         </div>
+
     );
 }
 

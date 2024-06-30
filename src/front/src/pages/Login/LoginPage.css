@@ -180,7 +180,7 @@ body {
     flex: 1;
     display: flex; /* 나머지 컴포넌트를 가로로 배치 */
     justify-content: space-between; /* 필요에 따라 정렬 조정 */
-    padding: 2%;
+    padding: 1%;
     width: 50%;
 }
 
@@ -190,40 +190,46 @@ body {
 
 
 /* ----------------------------------- Full Calendar Component CSS ----------------------------------- */
-
-/*.calendarCp{
-    box-shadow: 5px 5px 5px 5px #222222;
-    !*background-color: #2c2c2c;*!
-    background-color: #1C262C;
-    border-radius: 30px;
-    margin-right: 1%;
-    padding: 25px;
-
-    width: 50%;
-    !*height: 750px;*!
-}*/
-
-.calendarTittle{
-    color:#f1575b;
-}
 .calendar{
-    display: flex;
     width: 100%;
     height: 100%;
 }
-.calendar_zone{
-    flex: 1;
-    width:100vw;
-    height: 100vh;
+
+.calendar .calendarCp1{
+    display: flex;
+    color:#C3C3C3;
+    padding-bottom: 10px;
 }
-.todoList{
+.calendar .calendarCp1 h3{
+    color:#0339A6;
+    margin-bottom: 22px;
+    align-content: end;
+}
+.calendar .calendarCp2{
+    display: flex;
+    height: 55%;
+}
+.calendar .calendarCp3{
+    display: flex;
+    flex-direction: column;
+    height: 30%;
+    margin-top: 2%;
+    background-color: #1C262D;
+}
+.calendar .calendarCp2 .calendar_zone{
     flex: 1;
-    width:100vw;
-    height: 100vh;
+    width:100%;
+    height: 100%;
+}
+.calendar .calendarCp2 .todoList{
+    flex: 1;
+    width:100%;
+    height: 100%;
 }
 
 /* 달력 전체 틀 */
 .fc{
+    height: 100%;
     border-radius:10px;
     background-color: #1C262D;
 }
@@ -276,19 +282,16 @@ body {
 
 
 /* 캘린더 할일 리스트 관련 calendar todolist table css */
-.todoList{
+.calendar .calendarCp2 .todoList{
     margin-left: 2%;
 }
-.todoList_table{
+.calendar .calendarCp2 .todoList_table{
     border-collapse: collapse; /* 테이블 경계선이 겹치지 않도록 설정 */
     color: #C3C3C3;
     background-color: #141A1F;
     text-align: left;
 }
-.calendar .todoList .todoList_table tbody > tr {
-    height: 100px;
-}
-.calendar .todoList .todoList_table th {
+.calendar .calendarCp2 .todoList .todoList_table th {
     border-bottom: 1px solid #C3C3C3; /* th의 밑에 라인을 넣음 */
     background-color: #141A1F;
     color: white;
@@ -297,20 +300,21 @@ body {
     padding-right: 100px;
     padding-bottom: 15px;
 }
-.calendar .todoList .todoList_table td {
-    padding-top: 40px;
+.calendar .calendarCp2 .todoList .todoList_table td {
+    padding-top: 20px;
+    height: 60px;
 }
-.calendar .todoList .todoList_table th:nth-child(1),
-.calendar .todoList .todoList_table th:nth-child(5){
+.calendar .calendarCp2 .todoList .todoList_table th:nth-child(1),
+.calendar .calendarCp2 .todoList .todoList_table th:nth-child(5){
     padding-right: 25px;
 }
-.calendar .todoList .todoList_table th:nth-child(2) {
+.calendar .calendarCp2 .todoList .todoList_table th:nth-child(2) {
     padding-right: 120px;
 }
-.calendar .todoList .todoList_table .noBorder {
+.calendar .calendarCp2 .todoList .todoList_table .noBorder {
     border:none !important;
 }
-.calendar .todoList .todoList_table .noBorder:nth-child(5) {
+.calendar .calendarCp2 .todoList .todoList_table .noBorder:nth-child(5) {
     border:none !important;
     text-align: center;
 }
@@ -326,6 +330,66 @@ body {
     width: 50px;  /* 적절한 너비 설정 */
     height: 50px; /* 적절한 높이 설정 */
 }
+
+
+/* routine 시작 */
+.routine_title{
+    color:#C3C3C3;
+    padding-left: 25px;
+    font-size: 20px;
+    align-items: center;
+}
+.calendarCp3 .routine_list{
+    margin-left: 2%;
+}
+.calendarCp3 .routine_list .routine_table{
+    border-collapse: collapse; /* 테이블 경계선이 겹치지 않도록 설정 */
+    color: #C3C3C3;
+    background-color: #1C262D;
+    text-align: left;
+}
+.calendarCp3 .routine_list .routine_table th {
+    border-bottom: 1px solid #C3C3C3; /* th의 밑에 라인을 넣음 */
+    background-color: #1C262D;
+    color: white;
+    font-size: 20px;
+    font-weight: bolder;
+    padding-right: 100px;
+    padding-bottom: 15px;
+}
+.calendarCp3 .routine_list .routine_table td {
+    padding-top: 10px;
+}
+.calendar .calendarCp3 .routine_list .routine_table th:nth-child(1),
+.calendar .calendarCp3 .routine_list .routine_table th:nth-child(5){
+    padding-right: 25px;
+}
+.calendar .calendarCp3 .routine_list .routine_table th:nth-child(2),
+.calendar .calendarCp3 .routine_list .routine_table th:nth-child(5){
+    padding-right: 120px;
+}
+.calendar .calendarCp3 .routine_list .routine_table th:nth-child(4){
+    padding-right: 150px;
+}
+.calendar .calendarCp3 .routine_title span {
+    align-content: center;
+    margin-left: 1%;
+    margin-top: 10px;
+    width:5%;
+    height: 25%;
+    font-size:10px;
+    font-weight:bolder;
+    border-radius:5px;
+    background:#1D63ED;
+    color:#f5f5f5;
+    cursor:pointer;
+    border:none;
+    outline:none;
+}
+.calendar .calendarCp3 .routine_title span:hover {
+    background: #3391EE;
+}
+
 
 
 
