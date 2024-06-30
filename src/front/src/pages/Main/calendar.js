@@ -131,7 +131,8 @@ function Calendar({ scheduleData, fetchScheduleData }) {
     return (
         <div className="calendar">
             <div className="calendarCp1">
-                <h1>Schedule</h1>&nbsp;&nbsp;<h3>about schedule? 말풍선 달어</h3>
+                <h1>Schedule</h1>&nbsp;&nbsp;<h3><u>about schedule?</u></h3>
+                <p className="arrow_box">manage and update your schedule here!</p>{/* 말풍선 태그 */}
             </div>
             <div className="calendarCp2">
                 <div className="calendar_zone">

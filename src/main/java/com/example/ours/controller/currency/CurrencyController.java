@@ -45,7 +45,7 @@ public class CurrencyController {
         String data = "AP01"; // AP01 : 환율, AP02 : 대출금리, AP03 : 국제금리
 
         // String reqUrl = "https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey="+authKey+"&searchdate="+searchdate+"&data="+data;
-        String reqUrl = "https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey="+currencyApiKey+"&searchdate=20240605&data="+data;
+        String reqUrl = "https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey="+currencyApiKey+"&searchdate=20240602&data="+data;
 
         // 분류될 데이터를 담을 저장소
         JsonArray jsonList = new JsonArray();
@@ -69,25 +69,32 @@ public class CurrencyController {
                 }
                 in.close();
 
-                // JSON 파싱 > 응답 출력
-                JsonElement jsonElement = JsonParser.parseString(response.toString());
-                JsonArray jsonArray = jsonElement.getAsJsonArray();
+                // 리스트가 빈값일 경우(즉, 공휴일 등 계산값이 없을 시)
+                if("[]".equals(response.toString())){
+                    System.out.println("값이 없어");
 
-                for(JsonElement element : jsonArray){
-                    JsonObject job1 = element.getAsJsonObject();
-                    String curUnit = job1.get("cur_unit").getAsString(); // 통화 코드(약어)
-                    String curNm = job1.get("cur_nm").getAsString(); // 국가명
-                    String dealBasR = job1.get("deal_bas_r").getAsString(); // 매매기준율( 환율우대 x, 은행별 고시환율 적용 x )
 
-                    JsonObject job2 = new JsonObject();
-                    job2.addProperty("curUnit", curUnit);
-                    job2.addProperty("curNm", curNm);
-                    job2.addProperty("dealBasR", dealBasR);
+                }else{
+                    // JSON 파싱 > 응답 출력
+                    JsonElement jsonElement = JsonParser.parseString(response.toString());
+                    JsonArray jsonArray = jsonElement.getAsJsonArray();
 
-                    System.out.println("[코드명: " + curUnit + "] [국가명: " + curNm + "] [환율액: " + dealBasR+ "]");
+                    for(JsonElement element : jsonArray){
+                        JsonObject job1 = element.getAsJsonObject();
+                        String curUnit = job1.get("cur_unit").getAsString(); // 통화 코드(약어)
+                        String curNm = job1.get("cur_nm").getAsString(); // 국가명
+                        String dealBasR = job1.get("deal_bas_r").getAsString(); // 매매기준율( 환율우대 x, 은행별 고시환율 적용 x )
 
-                    if(curUnit.equals("KRW") || curUnit.equals("EUR")){
-                        jsonList.add(job2);
+                        JsonObject job2 = new JsonObject();
+                        job2.addProperty("curUnit", curUnit);
+                        job2.addProperty("curNm", curNm);
+                        job2.addProperty("dealBasR", dealBasR);
+
+                        System.out.println("[코드명: " + curUnit + "] [국가명: " + curNm + "] [환율액: " + dealBasR+ "]");
+
+                        if(curUnit.equals("KRW") || curUnit.equals("EUR")){
+                            jsonList.add(job2);
+                        }
                     }
                 }
             }else{
@@ -104,6 +111,7 @@ public class CurrencyController {
     // 공휴일 및 주말에 searchdate 예외처리 필요
     private void getSearchdate(){
         // 예외처리 시작
+
     }
 
 }
