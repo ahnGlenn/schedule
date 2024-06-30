@@ -58,7 +58,8 @@ public class ScheduleDto {
     }
 
     // 삭제 여부를 나타내는 플래그
-    private String delYn;
+    @Column(name = "del_yn", nullable = false)
+    private String delYn = "N";  // 기본값 설정
 
 
 }

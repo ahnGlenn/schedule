@@ -311,8 +311,9 @@ body {
     border:none !important;
 }
 .calendar .todoList .todoList_table .noBorder:nth-child(5) {
+    border:none !important;
     text-align: center;
-}e
+}
 #trash_bin{
     background-image: url("../../../public/images/trashbin_grey.png");
     width: 15px;  /* 적절한 너비 설정 */

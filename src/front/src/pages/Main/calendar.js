@@ -137,6 +137,7 @@ function Calendar({ scheduleData, fetchScheduleData }) {
                     defaultView="dayGridMonth"
                     plugins={[dayGridPlugin, interactionPlugin]}
                     events={scheduleData}
+                    displayEventTime={false} // 12a 앞에 안나오게.
                     headerToolbar={{
                         left: 'prev',
                         center: 'title',
@@ -162,7 +163,7 @@ function Calendar({ scheduleData, fetchScheduleData }) {
                             <td className="noBorder">{item.title}</td>
                             <td className="noBorder">{item.memo}</td>
                             <td className="noBorder">{formatDate(item.start)} ~ {formatDate(item.end)}</td>
-                            <td className="noBorder" onClick={() => deleteSchedule(item)}><span id="trash_bin"></span></td>
+                            <td style={{textAlign:"center"}} className="noBorder" onClick={() => deleteSchedule(item)}><span id="trash_bin"></span></td>
                         </tr>
                     ))}
                     </tbody>
