@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 
+import { formatDate, getCustomStyles } from '../common/common1'
 import Modal from 'react-modal';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -20,30 +21,24 @@ function Calendar({ scheduleData, fetchScheduleData }) {
     const [title, setTitle] = useState('');
     const [memo, setMemo] = useState('');
 
+
+
     // -----------------------------
     // dateClick 함수를 선언
     // -----------------------------
     const dateClick = (info) => {
-        // alert(info.dateStr);
-        // setStartDate(info.dateStr);
         setStartDate(info.dateStr);
         setModalIsOpen(true);
     };
 
 
-    /**********************************
-     modal style setting
-     **********************************/
-    const customStyles = {
-        content: {
-            display:'flex', color:'#f1575b', background:'#272829', borderRadius: '20px',
-            width: '500px', height: '350px', top: '50%', left: '50%', right: 'auto',
-            bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)', border:'0', fontWeight: 'bolder', fontFamily:'',
-        },
-        overlay: {
-            zIndex: 1000,
-            backgroundColor: 'rgba(0, 0, 0, 0.75)'}
-    };
+
+    // -----------------------------
+    // common1.jsx : 공통 모달창 스타일 호출
+    // ----------------------------
+    const customStyles = getCustomStyles('calendar');
+
+
 
     // -----------------------------
     // 날짜별 데이터 등록
@@ -96,6 +91,7 @@ function Calendar({ scheduleData, fetchScheduleData }) {
     }
 
 
+
     // -----------------------------
     // endDate 날짜 데이터 등록
     // -----------------------------
@@ -103,7 +99,6 @@ function Calendar({ scheduleData, fetchScheduleData }) {
         const endDate = event.target.value;
         setEndDate(endDate);
     };
-
     // -----------------------------
     // title 데이터 등록
     // -----------------------------
@@ -111,7 +106,6 @@ function Calendar({ scheduleData, fetchScheduleData }) {
         const title = event.target.value;
         setTitle(title);
     };
-
     // -----------------------------
     // memo 데이터 등록
     // -----------------------------
@@ -120,13 +114,15 @@ function Calendar({ scheduleData, fetchScheduleData }) {
         setMemo(memo);
     };
 
-    function formatDate(dateString) {
-        const date = new Date(dateString);
-        const month = ('0' + (date.getMonth() + 1)).slice(-2); // 월을 두 자리로 만들기
-        const day = ('0' + date.getDate()).slice(-2); // 일을 두 자리로 만들기
-        return `${month}-${day}`;
-    }
 
+
+    // -----------------------------
+    // 클릭시 달력 내 해당일정 깜빡임
+    // -----------------------------
+    const blinkSchedule = (event) => {
+        alert("blink");
+        // const memo = event.target.value;
+    };
 
     return (
         <div className="calendar">
@@ -163,7 +159,7 @@ function Calendar({ scheduleData, fetchScheduleData }) {
                         </thead>
                         <tbody>
                         {scheduleData.map((item, index) => (
-                            <tr>
+                            <tr onClick={() => blinkSchedule()}>
                                 <td className="noBorder">{index + 1}</td>
                                 <td className="noBorder">{item.title}</td>
                                 <td className="noBorder">{item.memo}</td>

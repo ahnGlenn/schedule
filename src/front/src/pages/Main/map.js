@@ -2,6 +2,7 @@ import React, { useCallback, useRef, useState, useEffect } from "react";
 import { GoogleMap, LoadScript, StandaloneSearchBox, Marker } from '@react-google-maps/api';
 import Modal from "react-modal";
 import axios from "axios";
+import {nightModeStyle ,getCustomStyles} from "../common/common1";
 
 // -----------------------------
 // .env에서 GOOGLE_MAP_API_KEY 호출
@@ -28,30 +29,6 @@ function Map({wishListData, fetchWishListData}) {
     const [memo, setMemo] = useState('');
     // const [placePhoto, setPlacePhoto] = useState(null);
 
-
-    // -----------------------------
-    // CSS for nightModeStyle
-    // -----------------------------
-    var nightModeStyle = [
-        { elementType: 'geometry', stylers: [{ color: '#242f3e' }] },
-        { elementType: 'labels.text.stroke', stylers: [{ color: '#242f3e' }] },
-        { elementType: 'labels.text.fill', stylers: [{ color: '#746855' }] },
-        { featureType: 'administrative.locality', elementType: 'labels.text.fill', stylers: [{ color: '#d59563' }] },
-        { featureType: 'poi', elementType: 'labels.text.fill', stylers: [{ color: '#d59563' }] },
-        { featureType: 'poi.park', elementType: 'geometry', stylers: [{ color: '#263c3f' }] },
-        { featureType: 'poi.park', elementType: 'labels.text.fill', stylers: [{ color: '#6b9a76' }] },
-        { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#38414e' }] },
-        { featureType: 'road', elementType: 'geometry.stroke', stylers: [{ color: '#212a37' }] },
-        { featureType: 'road', elementType: 'labels.text.fill', stylers: [{ color: '#9ca5b3' }] },
-        { featureType: 'road.highway', elementType: 'geometry', stylers: [{ color: '#746855' }] },
-        { featureType: 'road.highway', elementType: 'geometry.stroke', stylers: [{ color: '#1f2835' }] },
-        { featureType: 'road.highway', elementType: 'labels.text.fill', stylers: [{ color: '#f3d19c' }] },
-        { featureType: 'transit', elementType: 'geometry', stylers: [{ color: '#2f3948' }] },
-        { featureType: 'transit.station', elementType: 'labels.text.fill', stylers: [{ color: '#d59563' }] },
-        { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#17263c' }] },
-        { featureType: 'water', elementType: 'labels.text.fill', stylers: [{ color: '#515c6d' }] },
-        { featureType: 'water', elementType: 'labels.text.stroke', stylers: [{ color: '#17263c' }] }
-    ];
 
 
     // -----------------------------
@@ -216,18 +193,11 @@ function Map({wishListData, fetchWishListData}) {
     };
     
     // -----------------------------
-    // modal style setting
+    // common1.jsx : 공통 모달창 스타일 호출
     // -----------------------------
-    const customStyles = {
-        content: {
-            display:'flex', color:'#f1575b', background:'#272829', borderRadius: '20px',
-            width: '500px', height: '500px', top: '50%', left: '50%', right: 'auto',
-            bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)', border:'0', fontWeight: 'bolder', fontFamily:'',
-        },
-        overlay: {
-            zIndex: 1000,
-            backgroundColor: 'rgba(0, 0, 0, 0.75)'}
-    };
+    const customStyles = getCustomStyles('map');
+
+
 
     return (
         <LoadScript googleMapsApiKey={googleMapApiKey} libraries={["places"]}>
