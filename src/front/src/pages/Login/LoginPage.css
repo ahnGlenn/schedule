@@ -3,110 +3,102 @@ body {
     background-color: #141A1F;
     height: 100%;
     /*font-family:"Raleway";*/
-   /* font-family: "Roboto,RobotoDraft,Helvetica,Arial,sans-serif";*/
+    /* font-family: "Roboto,RobotoDraft,Helvetica,Arial,sans-serif";*/
     overflow-x: hidden;
     overflow-y: hidden;
 }
 .form {
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    width:300px;
-    height:250px;
-    padding:10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 250px;
+    padding: 10px;
 }
 .form .form-header {
-    height:30px;
-    display:flex;
-    align-items:center;
-    text-align:center;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    text-align: center;
 }
 .form .form-header > div {
-    width:calc(100% / 3);
-    color:#ddd;
-    font-size:18px;
-    font-weight:600;
-    cursor:pointer;
+    width: calc(100% / 3);
+    color: #ddd;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
 }
-.form.signup .form-header div.show-signup {
-    color:#f1575b;
-}
-.form.signin .form-header div.show-signin {
-    color:#f1575b;
-}
+.form.signup .form-header div.show-signup,
+.form.signin .form-header div.show-signin,
 .form.reset .form-header div.show-reset {
-    color:#f1575b;
+    color: #1D63ED;
 }
 .form .form-elements {
-    margin-top:15px;
+    margin-top: 15px;
 }
 .form .form-elements .form-element {
-    height:50px;
-    opacity:1;
-    overflow:hidden;
-    transition:all 500ms ease-in-out;
+    height: 50px;
+    opacity: 1;
+    overflow: hidden;
+    transition: all 500ms ease-in-out;
 }
 .form .form-elements input {
-    width:100%;
-    padding:10px;
-    font-size:16px;
-    margin:5px 0px;
-    border-radius:10px;
-    box-sizing:border-box;
-    border:1px solid #222;
-    background:#f5f5f5;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    margin: 5px 0px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    border: 1px solid #222;
+    background: #f5f5f5;
 }
 .form .form-elements button {
-    width:100%;
-    padding:10px;
-    font-size:16px;
-    font-weight:600;
-    margin-top:5px;
-    border-radius:10px;
-    background:#f1575b;
-    color:#f5f5f5;
-    cursor:pointer;
-    border:none;
-    outline:none;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 5px;
+    border-radius: 10px;
+    /* background: #f1575b; */
+    background: #1D63ED;
+    color: #f5f5f5;
+    cursor: pointer;
+    border: none;
+    outline: none;
 }
 .form .arrow {
-    position:absolute;
-    top:51px;
-    width:0;
-    height:0;
-    border-left:10px solid transparent;
-    border-right:10px solid transparent;
-    border-bottom:10px solid #f5f5f5;
+    position: absolute;
+    top: 51px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #f5f5f5;
 }
 .form.signup .arrow {
-    left:calc(calc(100% / 3) / 2);
+    left: calc(calc(100% / 3) / 2);
 }
 .form.signin .arrow {
-    left:calc(calc(100% / 3) + calc(calc(100% / 3) / 2.2)) ;
+    left: calc(calc(100% / 3) + calc(calc(100% / 3) / 2.2));
 }
 .form.reset .arrow {
-    left:calc(calc(calc(100% / 3) * 2) + calc(calc(100% / 3) / 3)) ;
+    left: calc(calc(calc(100% / 3) * 2) + calc(calc(100% / 3) / 3));
 }
-
 .form.signin .form-elements > div:nth-child(3) {
-    height:0px;
-    opacity:0;
+    height: 0px;
+    opacity: 0;
 }
 .form.reset .form-elements > div:nth-child(2),
 .form.reset .form-elements > div:nth-child(3) {
-    height:0px;
-    opacity:0;
+    height: 0px;
+    opacity: 0;
 }
-
-
-
-
 
 
 
 /* ----------------------------------- mainPage  CSS ----------------------------------- */
-.main_container{
+.main_container {
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -116,9 +108,8 @@ body {
 }
 
 
-
 /* ----------------------------------- mainPage Header.jsx , LeftMenu.jsx CSS ----------------------------------- */
-.main_container > div > .main_header{
+.main_container > div > .main_header {
     display: flex;
     width: 100%;
     height: 25px;
@@ -131,30 +122,37 @@ body {
     padding: 10px 20px;
     justify-content: space-between; /* 요소들을 양 끝으로 정렬 */
 }
-.logout{
+
+.logout {
     display: flex;
 }
+
 .logout span {
     color: #fff; /* 링크 색상 */
     text-decoration: none; /* 밑줄 없음 */
     padding: 20px 40px; /* 패딩 설정 */
     transition: background-color 0.3s ease; /* 호버 효과 설정 */
 }
+
 .logout span:hover {
     color: #2c2c2c;
 }
+
 .body_container {
     display: flex;
     flex: 1;
     height: 100%;
 }
+
 .leftMenuCp {
     flex: 0 0 400px; /* Adjust the width as needed */
 }
-.main_leftMenu{
+
+.main_leftMenu {
     background-color: #080B0E;
     height: 100%;
 }
+
 .nav-menu ul {
     margin-top: 0px;
     padding-top: 25px;
@@ -164,15 +162,18 @@ body {
     flex-direction: column;
     align-items: flex-start;
 }
-.nav-menu ul li{
+
+.nav-menu ul li {
     font-size: 20px;
     margin-bottom: 35px;
 }
-.nav-menu ul li a{
+
+.nav-menu ul li a {
     color: #7F8C96;
     text-decoration: none;
 }
-.nav-menu ul li a:hover{
+
+.nav-menu ul li a:hover {
     color: #f5f5f5;
 }
 
@@ -185,60 +186,62 @@ body {
 }
 
 
-
-
-
-
 /* ----------------------------------- Full Calendar Component CSS ----------------------------------- */
-.calendar{
+.calendar {
     width: 100%;
     height: 100%;
 }
 
-.calendar .calendarCp1{
+.calendar .calendarCp1 {
     display: flex;
-    color:#C3C3C3;
+    color: #C3C3C3;
     padding-bottom: 10px;
 }
-.calendar .calendarCp1 h3{
-    color:#0339A6;
+
+.calendar .calendarCp1 h3 {
+    color: #0339A6;
     margin-bottom: 22px;
     align-content: end;
 }
-.calendar .calendarCp2{
+
+.calendar .calendarCp2 {
     display: flex;
     height: 55%;
 }
-.calendar .calendarCp3{
+
+.calendar .calendarCp3 {
     display: flex;
     flex-direction: column;
     height: 30%;
     margin-top: 2%;
     background-color: #1C262D;
 }
-.calendar .calendarCp2 .calendar_zone{
+
+.calendar .calendarCp2 .calendar_zone {
     flex: 1;
-    width:100%;
+    width: 100%;
     height: 100%;
 }
-.calendar .calendarCp2 .todoList{
+
+.calendar .calendarCp2 .todoList {
     flex: 1;
-    width:100%;
+    width: 100%;
     height: 100%;
 }
 
 /* 달력 전체 틀 */
-.fc{
+.fc {
     height: 100%;
-    border-radius:10px;
+    border-radius: 10px;
     background-color: #1C262D;
 }
-.fc .fc-toolbar.fc-header-toolbar{
+
+.fc .fc-toolbar.fc-header-toolbar {
     margin-bottom: 0px;
 }
 
 /* month year */
-.fc-toolbar-title{
+.fc-toolbar-title {
     color: #f5f5f5;
     font-weight: bolder;
     font-size: 30px !important;
@@ -247,32 +250,34 @@ body {
 /* 일요일 날짜: 빨간색 */
 .fc-day a {
     font-weight: bolder;
-    color:#C3C3C3;
+    color: #C3C3C3;
 }
 
 /* 주말 날짜: 빨간색 */
 .fc-day-sun a, .fc-day-sat a {
     font-weight: bolder;
-    color:#f1575b;
+    color: #f1575b;
 }
 
 /* 달력 내 버튼 색상 */
-.fc-header-toolbar > .fc-toolbar-chunk > button{
-    padding:10px;
-    font-size:16px;
-    font-weight:600;
-    margin-top:5px;
-    border-radius:10px;
-    background:#2c2c2c;
-    color:#f5f5f5;
-    cursor:pointer;
-    border:none;
-    outline:none;
+.fc-header-toolbar > .fc-toolbar-chunk > button {
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 5px;
+    border-radius: 10px;
+    background: #2c2c2c;
+    color: #f5f5f5;
+    cursor: pointer;
+    border: none;
+    outline: none;
 }
-.headerToolbar{
-    background:#f1575b;
-    color:#f5f5f5;
+
+.headerToolbar {
+    background: #f1575b;
+    color: #f5f5f5;
 }
+
 /* 오늘날짜 배경색 커스텀 */
 /* 오늘 날짜의 배경색을 변경하는 CSS */
 .fc .fc-day-today {
@@ -280,17 +285,18 @@ body {
 }
 
 
-
 /* 캘린더 할일 리스트 관련 calendar todolist table css */
-.calendar .calendarCp2 .todoList{
+.calendar .calendarCp2 .todoList {
     margin-left: 2%;
 }
-.calendar .calendarCp2 .todoList_table{
+
+.calendar .calendarCp2 .todoList_table {
     border-collapse: collapse; /* 테이블 경계선이 겹치지 않도록 설정 */
     color: #C3C3C3;
     background-color: #141A1F;
     text-align: left;
 }
+
 .calendar .calendarCp2 .todoList .todoList_table th {
     border-bottom: 1px solid #C3C3C3; /* th의 밑에 라인을 넣음 */
     background-color: #141A1F;
@@ -300,54 +306,64 @@ body {
     padding-right: 100px;
     padding-bottom: 15px;
 }
+
 .calendar .calendarCp2 .todoList .todoList_table td {
     padding-top: 20px;
     height: 60px;
 }
+
 .calendar .calendarCp2 .todoList .todoList_table th:nth-child(1),
-.calendar .calendarCp2 .todoList .todoList_table th:nth-child(5){
+.calendar .calendarCp2 .todoList .todoList_table th:nth-child(5) {
     padding-right: 25px;
 }
+
 .calendar .calendarCp2 .todoList .todoList_table th:nth-child(2) {
     padding-right: 120px;
 }
+
 .calendar .calendarCp2 .todoList .todoList_table .noBorder {
-    border:none !important;
+    border: none !important;
 }
+
 .calendar .calendarCp2 .todoList .todoList_table .noBorder:nth-child(5) {
-    border:none !important;
+    border: none !important;
     text-align: center;
 }
-#trash_bin{
+
+#trash_bin {
     background-image: url("../../../public/images/trashbin_grey.png");
-    width: 15px;  /* 적절한 너비 설정 */
+    width: 15px; /* 적절한 너비 설정 */
     height: 20px; /* 적절한 높이 설정 */
     display: inline-block;
     background-size: cover; /* 이미지를 요소 크기에 맞춤 */
 }
-#trash_bin:hover{
+
+#trash_bin:hover {
     background-image: url("../../../public/images/trashbin_red.png");
-    width: 50px;  /* 적절한 너비 설정 */
+    width: 50px; /* 적절한 너비 설정 */
     height: 50px; /* 적절한 높이 설정 */
 }
 
 
 /* routine 시작 */
-.routine_title{
-    color:#C3C3C3;
+.routine_title {
+    color: #C3C3C3;
     padding-left: 25px;
     font-size: 20px;
     align-items: center;
 }
-.calendarCp3 .routine_list{
+
+.calendarCp3 .routine_list {
     margin-left: 2%;
 }
-.calendarCp3 .routine_list .routine_table{
+
+.calendarCp3 .routine_list .routine_table {
     border-collapse: collapse; /* 테이블 경계선이 겹치지 않도록 설정 */
     color: #C3C3C3;
     background-color: #1C262D;
     text-align: left;
 }
+
 .calendarCp3 .routine_list .routine_table th {
     border-bottom: 1px solid #C3C3C3; /* th의 밑에 라인을 넣음 */
     background-color: #1C262D;
@@ -357,54 +373,54 @@ body {
     padding-right: 100px;
     padding-bottom: 15px;
 }
+
 .calendarCp3 .routine_list .routine_table td {
     padding-top: 10px;
 }
+
 .calendar .calendarCp3 .routine_list .routine_table th:nth-child(1),
-.calendar .calendarCp3 .routine_list .routine_table th:nth-child(5){
+.calendar .calendarCp3 .routine_list .routine_table th:nth-child(5) {
     padding-right: 25px;
 }
+
 .calendar .calendarCp3 .routine_list .routine_table th:nth-child(2),
-.calendar .calendarCp3 .routine_list .routine_table th:nth-child(5){
+.calendar .calendarCp3 .routine_list .routine_table th:nth-child(5) {
     padding-right: 120px;
 }
-.calendar .calendarCp3 .routine_list .routine_table th:nth-child(4){
+
+.calendar .calendarCp3 .routine_list .routine_table th:nth-child(4) {
     padding-right: 150px;
 }
+
 .calendar .calendarCp3 .routine_title span {
     align-content: center;
     margin-left: 1%;
     margin-top: 10px;
-    width:5%;
+    width: 5%;
     height: 25%;
-    font-size:10px;
-    font-weight:bolder;
-    border-radius:5px;
-    background:#1D63ED;
-    color:#f5f5f5;
-    cursor:pointer;
-    border:none;
-    outline:none;
+    font-size: 10px;
+    font-weight: bolder;
+    border-radius: 5px;
+    background: #1D63ED;
+    color: #f5f5f5;
+    cursor: pointer;
+    border: none;
+    outline: none;
 }
+
 .calendar .calendarCp3 .routine_title span:hover {
     background: #3391EE;
 }
 
 
-
-
-
-
-
-
-
 /* ----------------------------------- Exchange Rate Component CSS ----------------------------------- */
 /* cp:#272829, bg:#272829  */
 
-.currency_box{
+.currency_box {
     display: inline-block;
 }
-.exRateCp{
+
+.exRateCp {
     width: 28%;
     /*background-color: #2c2c2c;*/
     background-color: #1C262C;
@@ -414,93 +430,101 @@ body {
     padding: 20px;
     /*margin-right: 1%;*/
 }
-.excr_box{
+
+.excr_box {
     display: flex;
     text-align: center;
     align-items: stretch; /* 자식 요소들이 동일한 높이를 갖도록 설정 */
 }
+
 .excr_box > .slc_box > .flag.europe {
     background-image: url("../../../public/images/free-icon-european-union-330426.png");
-    width: 30px;  /* 적절한 너비 설정 */
+    width: 30px; /* 적절한 너비 설정 */
     height: 30px; /* 적절한 높이 설정 */
     display: inline-block;
     background-size: cover; /* 이미지를 요소 크기에 맞춤 */
 }
+
 .excr_box > .slc_box > .flag.krw {
     background-image: url("../../../public/images/free-icon-south-korea-330591.png");
-    width: 30px;  /* 적절한 너비 설정 */
+    width: 30px; /* 적절한 너비 설정 */
     height: 30px; /* 적절한 높이 설정 */
     display: inline-block;
     background-size: cover; /* 이미지를 요소 크기에 맞춤 */
 }
-.currencyTittle{
-    color:#f5f5f5;
+
+.currencyTittle {
+    color: #f5f5f5;
 }
-.codeNm{
-    color:#f1575b;
+
+.codeNm {
+    color: #f1575b;
     font-weight: bolder;
 }
-.slc_box{display: inline-block}
-.num{
+
+.slc_box {
+    display: inline-block
+}
+
+.num {
     display: inline-block;
 }
-._input{
-    color:#f5f5f5;
+
+._input {
+    color: #f5f5f5;
     font-size: 20px;
     font-weight: bolder;
     background-color: #2D2E2F;
     width: 50%;
-    border-radius:5px;
+    border-radius: 5px;
     text-align: right;
-    outline: none;/* 포커싱시 파란 테두리 제거 */
+    outline: none; /* 포커싱시 파란 테두리 제거 */
 }
-.excr_eq{ font-weight: bolder; color:#f1575b; display: inline-block; }
 
-
-
-
-
+.excr_eq {
+    font-weight: bolder;
+    color: #f1575b;
+    display: inline-block;
+}
 
 
 /* ----------------------------------- save schedule Modal CSS ----------------------------------- */
-.modal_head .date{
-    color:#f5f5f5;
+.modal_head .date {
+    color: #f5f5f5;
 }
-._textArea{
-    outline: none;/* 포커싱시 파란 테두리 제거 */
-    height:100px;
-    color:lightsalmon;
+
+._textArea {
+    outline: none; /* 포커싱시 파란 테두리 제거 */
+    height: 100px;
+    color: lightsalmon;
     font-size: 20px;
     font-weight: bolder;
     background-color: #2D2E2F;
-    border:none;
+    border: none;
 }
+
 .modal_foot > .form-elements button {
-    width:40%;
-    padding:10px;
-    font-size:16px;
-    font-weight:600;
-    margin-top:10%;
-    border-radius:10px;
-    background:#f1575b;
-    color:#f5f5f5;
-    cursor:pointer;
-    border:none;
-    outline:none;
+    width: 40%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 10%;
+    border-radius: 10px;
+    background: #f1575b;
+    color: #f5f5f5;
+    cursor: pointer;
+    border: none;
+    outline: none;
     margin-left: 5%;
 }
-.modal_foot > .form-elements{
+
+.modal_foot > .form-elements {
     text-align: center;
 }
 
 
-
-
-
-
-
 /* ----------------------------------- Google Map CSS ----------------------------------- */
-.mapCp{
+.mapCp {
     /*display: flex;
     flex-direction: column;
     align-items: center; !* 수직 가운데 정렬 *!
@@ -513,28 +537,32 @@ body {
     border-radius: 30px;
     margin-right: 1%;
 }
-.mapCp2{
+
+.mapCp2 {
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 100%;
 }
+
 .mapTittle {
     /* flex: 0.07; */
     font-size: 30px;
     font-weight: bolder;
-    color:#f5f5f5;
+    color: #f5f5f5;
     /*margin-bottom: 20px;*/ /* 제목과 지도 사이 여백 조정 */
     margin-bottom: 10px;
     height: 5%;
     /* padding: 21px; */
 }
-.map-container{
+
+.map-container {
     flex: 1;
     position: relative;
     width: 100%; /* 부모 요소의 너비에 맞춤 */
     height: 100%; /* 부모 요소의 높이에 맞춤 */
 }
+
 .search-box {
     box-sizing: border-box;
     border: 1px solid transparent;
@@ -556,64 +584,74 @@ body {
 }
 
 
-.modal_head > h1{  /* map save modal css */
+.modal_head > h1 { /* map save modal css */
     text-align: center;
     font-weight: bolder;
 }
-.modal_head > h3{  /* map save modal css */
+
+.modal_head > h3 { /* map save modal css */
     text-align: center;
 }
-h3 > #rating, h3 > #totalRating {  /* map save modal css */
+
+h3 > #rating, h3 > #totalRating { /* map save modal css */
     color: #C3C3C3;
 }
-h3 > #callNum{  /* map save modal css */
+
+h3 > #callNum { /* map save modal css */
     font-size: 15px;
     color: coral;
 }
-#rating_star{
+
+#rating_star {
     background-image: url("../../../public/images/round_star.png");
-    width: 15px;  /* 적절한 너비 설정 */
+    width: 15px; /* 적절한 너비 설정 */
     height: 15px; /* 적절한 높이 설정 */
     background-size: contain; /* 이미지를 요소 크기에 맞춤 */
     display: inline-block; /* 요소를 인라인 블록으로 설정 */
 }
-.modal_body > div > label{/* map save modal css */
+
+.modal_body > div > label { /* map save modal css */
     font-size: 20px;
     font-weight: bolder;
 }
-.modal_body #address{
+
+.modal_body #address {
     color: #C3C3C3;
 }
-#categories{
+
+#categories {
     font-size: 20px;
     font-weight: bolder;
     background-color: #2D2E2F;
     color: #C3C3C3;
-    border:none;
+    border: none;
     width: 100%;
     padding: 10px;
 }
-.modal_textArea{
-    outline: none;/* 포커싱시 파란 테두리 제거 */
-    height:50px;
+
+.modal_textArea {
+    outline: none; /* 포커싱시 파란 테두리 제거 */
+    height: 50px;
     width: 96%;
     /*color:lightsalmon;*/
     font-size: 20px;
     font-weight: bolder;
     background-color: #2D2E2F;
     color: #C3C3C3;
-    border:none;
+    border: none;
     padding: 10px;
     resize: none;
 }
 
-.mapList{
+.mapList {
     margin-top: 3%;
     flex: 0.5;
 }
+
 .mapList_contents {
     border-collapse: collapse; /* 테이블 셀 경계를 병합하여 테이블의 경계선을 만듭니다. */
 }
+
 /* mapList 테이블 css */
 .mapList_contents th,
 .mapList_contents td {
@@ -625,22 +663,11 @@ h3 > #callNum{  /* map save modal css */
 .mapList_contents .splitLine {
     transform: scaleY(0.10);
 }
-.list_info2{ /* wish-list 별점 및 리뷰수 */
+
+.list_info2 { /* wish-list 별점 및 리뷰수 */
     color: #C3C3C3;
     font-size: 16px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /* ----------------------------------- 말풍선 CSS ----------------------------------- */
@@ -663,6 +690,7 @@ h3 > #callNum{  /* map save modal css */
     font-size: 14px;
     font-weight: bold;
 }
+
 .arrow_box:after {
     position: absolute;
     bottom: 100%;
