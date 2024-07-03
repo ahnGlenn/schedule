@@ -18,14 +18,14 @@ public class UserDto {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "userid", nullable = false)
-    private String userId;
+    @Column(name = "email", nullable = false)
+    private String email;
 
-    private String title;
+    @Column(name = "name", nullable = false)
+    private String name;
 
-    private String memo;
-
-    private String category;
+    @Column(name = "password", nullable = false)
+    private String password;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
