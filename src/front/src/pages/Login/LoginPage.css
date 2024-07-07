@@ -492,7 +492,20 @@ body {
 .modal_head .date {
     color: #f5f5f5;
 }
-
+.modal_close_btn{
+    background-image: url("../../../public/images/close.png");
+    float:right;
+    width: 35px; /* 적절한 너비 설정 */
+    height: 35px; /* 적절한 높이 설정 */
+    background-size: contain; /* 이미지를 요소 크기에 맞춤 */
+}
+.modal_close_btn:hover{
+    background-image: url("../../../public/images/close_hover.png");
+    float:right;
+    width: 35px; /* 적절한 너비 설정 */
+    height: 35px; /* 적절한 높이 설정 */
+    background-size: contain; /* 이미지를 요소 크기에 맞춤 */
+}
 ._textArea {
     outline: none; /* 포커싱시 파란 테두리 제거 */
     height: 100px;

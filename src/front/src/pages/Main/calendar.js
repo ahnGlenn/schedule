@@ -217,7 +217,10 @@ function Calendar({ scheduleData, fetchScheduleData }) {
             <Modal isOpen={modalIsOpen} style={customStyles}>
                 <div style={{flex:'1'}}>{/* 부모div에 자식div가 딱 맞게 */}
                     <div className="modal_head">
-                        <h1><span className="date">{startDate}</span><a onClick={()=> setModalIsOpen(false)} style={{float:"right"}}>X</a></h1>
+                        <h1>
+                            <span className="date">{startDate}</span>
+                            <span onClick={()=> setModalIsOpen(false)} className="modal_close_btn" ></span>
+                        </h1>
                     </div>
                     <div className="modal_body">
                         <div>
