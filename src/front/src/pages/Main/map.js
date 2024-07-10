@@ -201,8 +201,8 @@ function Map({wishListData, fetchWishListData}) {
 
     return (
         <LoadScript googleMapsApiKey={googleMapApiKey} libraries={["places"]}>
-            <div className="mapCp2">
-                <div className="mapTittle">
+            <div className="mapCp">
+                <div className="mapCp1">
                     <span>Wish List</span>
                 </div>
                 <div className="map-container">
