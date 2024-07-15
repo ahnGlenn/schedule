@@ -194,18 +194,18 @@ function Calendar({ scheduleData, fetchScheduleData }) {
                                 <td className="noBorder">반복 업무 1</td>
                                 <td className="noBorder">반복해야되요.</td>
                                 <td className="noBorder">반복 시작일 ~ 반복 종료일</td>
-                                <td slassName="noBorder">반복 일정</td>
-                                <td slassName="noBorder">반복 일정</td>
-                                <td slassName="noBorder"><span id="trash_bin"></span></td>
+                                <td className="noBorder">반복 일정</td>
+                                <td className="noBorder">반복 일정</td>
+                                <td className="noBorder"><span id="trash_bin"></span></td>
                             </tr>
                             <tr>
                                 <td className="noBorder">2</td>
                                 <td className="noBorder">반복 업무 2</td>
                                 <td className="noBorder">반복해야되요.</td>
                                 <td className="noBorder">반복 시작일 ~ 반복 종료일</td>
-                                <td slassName="noBorder">반복 일정</td>
-                                <td slassName="noBorder">반복 일정</td>
-                                <td slassName="noBorder"><span id="trash_bin"></span></td>
+                                <td className="noBorder">반복 일정</td>
+                                <td className="noBorder">반복 일정</td>
+                                <td className="noBorder"><span id="trash_bin"></span></td>
                             </tr>
                         </tbody>
                     </table>
