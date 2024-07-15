@@ -22,7 +22,7 @@ public class UserDto {
     private String email;
 
     @Column(name = "name", nullable = false)
-    private String name;
+    private String username;
 
     @Column(name = "password", nullable = false)
     private String password;

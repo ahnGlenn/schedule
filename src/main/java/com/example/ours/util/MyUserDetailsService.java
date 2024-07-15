@@ -17,11 +17,11 @@ public class MyUserDetailsService implements UserDetailsService {
     private UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDto userDto = userRepository.findByUsername(username);
+    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
+        UserDto userDto = userRepository.findByUsername(name);
         if (userDto == null) {
             throw new UsernameNotFoundException("User not found");
         }
-        return new org.springframework.security.core.userdetails.User(userDto.getName(), userDto.getPassword(), new ArrayList<>());
+        return new org.springframework.security.core.userdetails.User(userDto.getUsername(), userDto.getPassword(), new ArrayList<>());
     }
 }
