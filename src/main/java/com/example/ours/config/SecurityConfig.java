@@ -57,19 +57,25 @@ public class SecurityConfig {
                         // sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 )
+
+                // JWT 필터 추가
+                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+
                 // 로그인 처리 핸들러 설정
-                .formLogin(formLogin ->
-                        formLogin
-                                .loginPage("/") // 로그인 페이지 설정
-                                .loginProcessingUrl("/api/login") // 로그인 처리 URL 설정
-                                .defaultSuccessUrl("/main/calendar", true) // 로그인 성공 시 리디렉션 URL
-                                .failureUrl("/login?error=true") // 로그인 실패 시 리디렉션 URL
-                                .permitAll()
-                )
-                .logout(logout -> logout
-                        .logoutUrl("/logout") // 로그아웃 URL 설정
-                        .logoutSuccessUrl("/") // 로그아웃 성공 시 리디렉션 URL
-                );
+                // https://okky.kr/questions/285186
+                // jwt에서는 리다이렉트 할 일이 없으므로 일단 주석..
+//                .formLogin(formLogin ->
+//                        formLogin
+//                                .loginPage("/login") // 로그인 페이지 설정
+//                                .loginProcessingUrl("/api/login") // 로그인 처리 URL 설정
+//                                .defaultSuccessUrl("/main/calendar", true) // 로그인 성공 시 리디렉션 URL
+//                                .failureUrl("/login?error=true") // 로그인 실패 시 리디렉션 URL
+//                                .permitAll()
+//                )
+//                .logout(logout -> logout
+//                        .logoutUrl("/logout") // 로그아웃 URL 설정
+//                        .logoutSuccessUrl("/") // 로그아웃 성공 시 리디렉션 URL
+//                );
 
         return http.build();
     }

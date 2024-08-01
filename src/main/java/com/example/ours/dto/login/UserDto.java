@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Entity
 @Data
-@Table(name = "our_user")  // 실제 데이터베이스 테이블 이름으로 명시
+@Table(name = "our_users")  // 실제 데이터베이스 테이블 이름으로 명시
 public class UserDto {
 
     /*

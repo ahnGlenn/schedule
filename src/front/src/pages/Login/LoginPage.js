@@ -24,7 +24,7 @@ function LoginPage() {
     async function signIn(){
 
         try {
-            const loginApi = await axios.get("/api/login", { email, password });
+            const loginApi = await axios.post("/api/login", { email: email, password: password });
             alert(loginApi.data);
 
             // 서버에서 "LOGIN_SUCCESS"를 받았을 때 페이지 이동
