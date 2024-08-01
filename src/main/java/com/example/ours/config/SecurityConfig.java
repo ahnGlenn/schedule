@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -17,6 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.web.firewall.DefaultHttpFirewall;
+import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -39,18 +42,20 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable)
+                // .csrf(AbstractHttpConfigurer::disable)
+                .csrf(csrf -> csrf.disable()) // CSRF 보호 비활성화
                 .cors(cors -> {
                     CorsConfigurationSource source = corsConfigurationSource();
                     cors.configurationSource(source);
                 })
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/", "/api/login").permitAll() // 루트 및 로그인 API는 모든 사용자에게 허용
-                                .anyRequest().authenticated() // 그 외 모든 요청은 인증된 사용자만 접근 가능
+                        .requestMatchers("/", "/api/login", "/login", "/resources/**").permitAll() // 로그인 페이지, 로그인 API, 정적 리소스 등은 모두 접근 가능
+                        .anyRequest().authenticated() // 그 외 모든 요청은 인증된 사용자만 접근 가능
                 )
                 .sessionManagement(sessionManagement ->
-                        sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                        // sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                        sessionManagement.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 )
                 // 로그인 처리 핸들러 설정
                 .formLogin(formLogin ->
@@ -60,8 +65,21 @@ public class SecurityConfig {
                                 .defaultSuccessUrl("/main/calendar", true) // 로그인 성공 시 리디렉션 URL
                                 .failureUrl("/login?error=true") // 로그인 실패 시 리디렉션 URL
                                 .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout") // 로그아웃 URL 설정
+                        .logoutSuccessUrl("/") // 로그아웃 성공 시 리디렉션 URL
                 );
+
         return http.build();
+    }
+
+    public void configure(WebSecurity web) throws Exception {
+        web.httpFirewall(defaultHttpFirewall());
+    }
+
+    @Bean public HttpFirewall defaultHttpFirewall() {
+        return new DefaultHttpFirewall();
     }
 
     @Bean
