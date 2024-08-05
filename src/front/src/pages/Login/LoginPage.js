@@ -22,19 +22,19 @@ function LoginPage() {
      로그인 api
      **********************************/
     async function signIn(){
-
         try {
             const loginApi = await axios.post("/api/login", { email: email, password: password });
-            alert(loginApi.data);
+            const {accessToken} = loginApi.data.token;
+            alert(loginApi.data.token);
 
-            // 서버에서 "LOGIN_SUCCESS"를 받았을 때 페이지 이동
-            if (loginApi.data === 'LOGIN_SUCCESS') {
+            if (accessToken) {
+                localStorage.setItem('accessToken', accessToken);
                 navigate('/main/calendar');
-            } else {
-                alert("Not exist login Information.");
+            }else {
+                console.error('Login failed:');
             }
-        } catch {
-            // 오류 발생시 실행
+        } catch(error) {
+            console.error('Error:', error);
         }
     }
 
