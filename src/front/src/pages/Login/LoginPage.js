@@ -24,11 +24,20 @@ function LoginPage() {
     async function signIn(){
         try {
             const loginApi = await axios.post("/api/login", { email: email, password: password });
-            const {accessToken} = loginApi.data.token;
-            alert(loginApi.data.token);
 
-            if (accessToken) {
-                localStorage.setItem('accessToken', accessToken);
+            const tokenData = loginApi.data.token;
+            console.log('Token data:', tokenData);
+
+            //const {accessToken} = tokenData;
+            //console.log('Access token:', accessToken);
+
+            //alert(tokenData); // tokenData의 값 확인
+            //alert(accessToken); // accessToken 값 확인
+
+            if (tokenData) {
+                alert("Complete localStorage saving..");
+                localStorage.setItem('accessToken', tokenData);
+                alert("Complete localStorage save..");
                 navigate('/main/calendar');
             }else {
                 console.error('Login failed:');
