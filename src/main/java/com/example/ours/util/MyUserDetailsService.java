@@ -16,16 +16,32 @@ public class MyUserDetailsService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * spring security는 기본적으로 loadUserByUsername를 호출한다.
+     * @param email the username identifying the user whose data is required.
+     * @return
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         UserDto userDto = userRepository.findByEmail(email);
         if (userDto == null) {
             throw new UsernameNotFoundException("User not found");
         }
-        // .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        // return new MyUserDetails(user);
         return new org.springframework.security.core.userdetails.User(userDto.getUsername(), userDto.getPassword(), new ArrayList<>());
     }
 
-
+    /**
+     * 커스텀 사용
+     * @param username
+     * @return
+     * @throws UsernameNotFoundException
+     */
+    public UserDetails loadUserByUserName2(String username) throws UsernameNotFoundException {
+        UserDto userDto = userRepository.findByUsername(username);
+        if (userDto == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        return new org.springframework.security.core.userdetails.User(userDto.getUsername(), userDto.getPassword(), new ArrayList<>());
+    }
 }

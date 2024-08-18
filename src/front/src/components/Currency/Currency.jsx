@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import instance from "../../axios";
 
 function Currency() {
 
@@ -16,8 +17,8 @@ function Currency() {
     // -----------------------------
     const fetchData = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/currency'); // Java 백엔드의 API URL
-            const result = await response.json();
+            const response = await instance.get('http://localhost:8080/api/currency'); // Java 백엔드의 API URL
+            const result = response.data;
 
             result.forEach(item =>{
                 if(item.curUnit === "KRW"){

@@ -28,8 +28,6 @@ public class AuthenticationController {
     private JwtUtil jwtUtil;
     @Autowired
     private MyUserDetailsService userDetailsService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @PostMapping("/login")/* axios > post를 받기위해서(@RequestBody) */
     public ResponseEntity<?> createToken(@RequestBody AuthenticationRequest request) {
