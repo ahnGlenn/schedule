@@ -5,6 +5,7 @@ import Currency from "../../components/Currency/Currency";
 import Map from "../Main/map";
 import LeftMenu from "./left";
 import { Routes, Route } from 'react-router-dom';
+import instance from "../../axios"; // 생성한 axios interceptors의 instance를 가져와 사용하기 위함
 
 
 /********************************
@@ -20,8 +21,8 @@ function MainPage() {
     const [scheduleData, setScheduleData] = useState([]);
     const fetchScheduleData = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/schedule/list');
-            const result = await response.json();
+            const response = await instance.get('http://localhost:8080/api/schedule/list');
+            const result = response.data;
 
             // rawData에 데이터를 변환하여 넣기
             const rawData = result.map(item => ({
@@ -48,8 +49,8 @@ function MainPage() {
     const [wishListData, setWishListData] = useState([]);
     const fetchWishListData = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/wishList/list');
-            const result = await response.json();
+            const response = await instance.get('http://localhost:8080/api/wishList/list');
+            const result = response.data;
 
             // rawData에 데이터를 변환하여 넣기
             const rawData = result.map(item => ({
