@@ -6,6 +6,7 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from "@fullcalendar/interaction";
 import axios from "axios";
+import instance from "../../axios";
 
 /**********************************
  Calender Component for MainPage.js
@@ -45,18 +46,19 @@ function Calendar({ scheduleData, fetchScheduleData }) {
     // -----------------------------
     const saveSchedule = async () => {
         try {
-            const response = await axios.post("/api/schedule/save", {
+            const response = await instance.post("http://localhost:8080/api/schedule/save", {
                 startDate: startDate,
                 endDate: endDate,
                 title: title,
                 memo: memo
             });
+
             const result = response.data;
-            if(result === 1) {
-                setModalIsOpen(false);
+
+            if (result === "Schedule save/update successfully") {
                 fetchScheduleData(); // 새로고침 없이 새로운 데이터로 캘린더 업데이트
-            }else{
-                alert("failed");
+            } else {
+                alert("Failed to save/update schedule");
             }
 
         } catch(error) {
@@ -71,22 +73,22 @@ function Calendar({ scheduleData, fetchScheduleData }) {
     // -----------------------------
     const deleteSchedule = async (item) =>{
         try{
-            if(window.confirm("are you going to delete?")){
-                const response = await axios.post("/api/schedule/delete", {
+            if(window.confirm("are you going to delete?")) {
+                const response = await instance.post("http://localhost:8080/api/schedule/delete", {
                     id: item.id,
                     userId: item.userId,
                 });
 
                 const result = response.data;
-
-                if(result === 1) {
+                if (result === "Schedule deleted successfully") {
                     fetchScheduleData(); // 새로고침 없이 새로운 데이터로 캘린더 업데이트
-                }else{
-                    alert("failed");
+                } else {
+                    alert("Failed to delete schedule");
                 }
             }
-        }catch (e) {
-            console.error("삭제 중 오류 발생:", e);
+        } catch (error) {
+            console.error('Error deleting schedule:', error);
+            alert("An error occurred while deleting the schedule");
         }
     }
 
