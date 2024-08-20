@@ -30,10 +30,16 @@ function LoginPage() {
                 localStorage.setItem('accessToken', tokenData);
                 navigate('/main/calendar');
             }else {
-                console.error('Login failed:');
+                console.error('Login failed: No token received');
             }
         } catch(error) {
-            console.error('Error:', error);
+            // axios의 error.response는 서버 응답 상태와 데이터를 포함
+            if (error.response) {
+                if (error.response.status === 401) {
+                    alert("Incorrect email or password!");
+                }
+                console.error('Error:', error);
+            }
         }
     }
 
