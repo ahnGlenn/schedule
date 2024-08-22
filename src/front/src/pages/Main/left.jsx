@@ -19,7 +19,7 @@ function LeftMenu() {
                 <ul>
                     <li><Link to="/main/calendar">Calendar</Link></li>
                     <li><Link to="/main/map" onClick={handleRefreshPage}>Wish list</Link></li>
-                    <li><Link to="/main/currency">Currency</Link></li>
+                    <li><Link to="/main/">History</Link></li>
                 </ul>
             </nav>
         </div>
