@@ -14,11 +14,11 @@
 
 # 사용 라이브러리
  1. 일정관리 페이지
-  - fullCalander.js
+    - fullCalander.js
 
  2. 위시리스트 관리
-  - Google Map API
+    - Google Map API
 
  3. 환율계산기(한화-유로)
-  - 
+    - 한국수출입은행 환율 API 
 
