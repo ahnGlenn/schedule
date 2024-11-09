@@ -1,4 +1,4 @@
-# [MAIN PROJECT] : tildie (미정)
+# [MAIN PROJECT] : tildie (미)
   - 아이디어 떠오를 시 업데이트하는 프로젝트
   - 일상, 업무, 일정, 위시리스트 등 일상에서 필요한 내용 위주
 
